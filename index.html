@@ -249,24 +249,26 @@
 
     .section-number {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 120px;
+      font-size: 140px;
       font-weight: 900;
       color: var(--accent);
       line-height: 1;
-      opacity: 0.3;
+      opacity: 0.2;
     }
 
     .section-title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-top: -10px;
-      margin-bottom: 16px;
+      font-size: 56px;
+      font-weight: 900;
+      margin-top: -20px;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
     }
 
     .section-desc {
-      font-size: 18px;
+      font-size: 20px;
       color: var(--text-muted);
-      font-weight: 300;
+      font-weight: 400;
+      line-height: 1.7;
     }
 
     /* Content Slide */
@@ -279,19 +281,21 @@
 
     .slide-heading .session-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--accent);
       background: rgba(212, 43, 43, 0.08);
       border: 1px solid rgba(212, 43, 43, 0.2);
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       white-space: nowrap;
+      letter-spacing: 0.05em;
     }
 
     .slide-heading h2 {
-      font-size: 36px;
-      font-weight: 700;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
     }
 
     /* Cards */
@@ -305,7 +309,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 32px 28px;
       transition: all 0.3s;
       cursor: default;
     }
@@ -317,20 +321,21 @@
     }
 
     .card-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
+      font-size: 40px;
+      margin-bottom: 20px;
     }
 
     .card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
     .card p {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* Steps */
@@ -342,12 +347,12 @@
 
     .step {
       display: flex;
-      align-items: flex-start;
-      gap: 20px;
+      align-items: center;
+      gap: 24px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 20px 24px;
+      padding: 24px 28px;
       transition: all 0.3s;
     }
 
@@ -357,22 +362,23 @@
 
     .step-num {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 28px;
+      font-weight: 900;
       color: var(--accent);
-      min-width: 40px;
+      min-width: 48px;
     }
 
     .step-content h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 4px;
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
 
     .step-content p {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* Choice Grid */
@@ -399,19 +405,21 @@
     }
 
     .choice .choice-icon {
-      font-size: 36px;
-      margin-bottom: 12px;
+      font-size: 42px;
+      margin-bottom: 16px;
     }
 
     .choice h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
     }
 
     .choice p {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-muted);
+      line-height: 1.6;
     }
 
     /* Code Block */
@@ -447,7 +455,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 28px;
       transition: all 0.3s;
     }
 
@@ -456,24 +464,25 @@
     }
 
     .tip-label {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--orange);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .tip h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
     .tip p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* Highlight Box */
@@ -481,22 +490,23 @@
       background: #f6f6f4;
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 32px;
+      padding: 28px 32px;
       margin-top: 24px;
       text-align: center;
     }
 
     .highlight-box h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 10px;
       color: var(--text);
+      letter-spacing: -0.01em;
     }
 
     .highlight-box p {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.8;
     }
 
     /* ===== Controls ===== */
@@ -648,63 +658,70 @@
       flex-direction: column;
       gap: 0;
       position: relative;
-      padding-left: 32px;
+      padding-left: 48px;
     }
 
     .timeline::before {
       content: '';
       position: absolute;
-      left: 11px;
-      top: 8px;
-      bottom: 8px;
-      width: 2px;
+      left: 15px;
+      top: 16px;
+      bottom: 16px;
+      width: 3px;
       background: var(--border);
     }
 
     .tl-item {
       display: flex;
       align-items: center;
-      gap: 20px;
-      padding: 10px 0;
+      gap: 24px;
+      padding: 14px 0;
       position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tl-item:last-child {
+      border-bottom: none;
     }
 
     .tl-item::before {
       content: '';
       position: absolute;
-      left: -25px;
-      width: 12px;
-      height: 12px;
+      left: -41px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      background: var(--border);
-      border: 2px solid #fff;
+      background: #fff;
+      border: 3px solid var(--border);
       z-index: 1;
     }
 
     .tl-item.tl-active::before {
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(212, 43, 43, 0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 6px rgba(212, 43, 43, 0.15);
     }
 
     .tl-num {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--accent);
-      min-width: 28px;
+      min-width: 40px;
     }
 
     .tl-title {
-      font-size: 17px;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
     }
 
     .tl-desc {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       margin-left: auto;
       text-align: right;
-      min-width: 120px;
+      min-width: 180px;
     }
 
     /* ===== Background Decoration ===== */

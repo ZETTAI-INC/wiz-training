@@ -652,6 +652,139 @@
     .slide.active .delay-5 { animation-delay: 0.5s; opacity: 0; }
     .slide.active .delay-6 { animation-delay: 0.6s; opacity: 0; }
 
+    /* ===== Picker Cards ===== */
+    .picker-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .picker {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px 22px 60px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .picker:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .picker.picker-top {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, #fff7f7 0%, #fff 80%);
+    }
+
+    .picker.checked {
+      border-color: var(--accent);
+      background: #fff7f7;
+    }
+
+    .picker-check {
+      position: absolute;
+      top: 22px;
+      left: 20px;
+      width: 26px;
+      height: 26px;
+      border: 2.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      transition: all 0.15s;
+    }
+
+    .picker:hover .picker-check {
+      border-color: var(--accent);
+    }
+
+    .picker.checked .picker-check {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .picker.checked .picker-check::after {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 2px;
+      width: 6px;
+      height: 12px;
+      border: solid #fff;
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg);
+    }
+
+    .picker-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .picker-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--accent);
+      background: rgba(212, 43, 43, 0.08);
+      padding: 3px 9px;
+      border-radius: 5px;
+      letter-spacing: 0.04em;
+    }
+
+    .picker-badge {
+      font-size: 10px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--accent);
+      padding: 3px 9px;
+      border-radius: 5px;
+      letter-spacing: 0.08em;
+    }
+
+    .picker h3 {
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .picker-points {
+      list-style: none;
+      margin: 0 0 10px;
+      padding: 0;
+    }
+
+    .picker-points li {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .picker-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .picker-effect {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      background: #f6f6f4;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+
     /* ===== Prompt Block ===== */
     .prompt-block {
       background: #f6f6f4;
@@ -1174,7 +1307,7 @@
       <div class="slide-content slide-section">
         <div class="section-number animate-in delay-1">03</div>
         <h2 class="section-title animate-in delay-2">AI プロジェクト</h2>
-        <p class="section-desc animate-in delay-3">以下のAIプロジェクトから1つ選んで取り組みます</p>
+        <p class="section-desc animate-in delay-3">6つの中から1つ選んで、自分で作ってみよう！</p>
       </div>
     </div>
 
@@ -1183,34 +1316,90 @@
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 3</span>
-          <h2>プロジェクトを1つ選択</h2>
+          <h2>この中から選んで作ってみよう！</h2>
         </div>
-        <div class="choices animate-in delay-1">
-          <div class="choice">
-            <div class="choice-icon">&#128202;</div>
+        <div class="picker-grid animate-in delay-1">
+
+          <div class="picker picker-top" onclick="togglePicker(this)" data-picker="1">
+            <div class="picker-check"></div>
+            <div class="picker-head">
+              <span class="picker-num">01</span>
+              <span class="picker-badge">最優先</span>
+            </div>
             <h3>経営ダッシュボードAI</h3>
-            <p>経営データを可視化し、AIが分析・提案</p>
+            <ul class="picker-points">
+              <li>会社全体の数字を一瞬で把握</li>
+              <li>利益率・赤字事業・改善ポイントを可視化</li>
+              <li>AIが改善アクションまで提示</li>
+            </ul>
+            <div class="picker-effect">効果: 経営判断のスピードと精度が上がる</div>
           </div>
-          <div class="choice">
-            <div class="choice-icon">&#128101;</div>
+
+          <div class="picker" onclick="togglePicker(this)" data-picker="2">
+            <div class="picker-check"></div>
+            <div class="picker-head">
+              <span class="picker-num">02</span>
+            </div>
             <h3>人材配置最適化AI</h3>
-            <p>スキルと案件のマッチングをAIで最適化</p>
+            <ul class="picker-points">
+              <li>社員のスキル・稼働・コストをもとに最適配置</li>
+              <li>無駄な人件費・過不足を解消</li>
+            </ul>
+            <div class="picker-effect">効果: 人件費の最適化・生産性向上</div>
           </div>
-          <div class="choice">
-            <div class="choice-icon">&#128178;</div>
+
+          <div class="picker" onclick="togglePicker(this)" data-picker="3">
+            <div class="picker-check"></div>
+            <div class="picker-head">
+              <span class="picker-num">03</span>
+            </div>
             <h3>コスト削減ポイント抽出AI</h3>
-            <p>支出データからコスト削減ポイントを自動発見</p>
+            <ul class="picker-points">
+              <li>PL・経費データから無駄を自動特定</li>
+              <li>削減できる項目を明確化</li>
+            </ul>
+            <div class="picker-effect">効果: 即利益改善（最短で効果が出る）</div>
           </div>
-          <div class="choice">
-            <div class="choice-icon">&#128218;</div>
+
+          <div class="picker" onclick="togglePicker(this)" data-picker="4">
+            <div class="picker-check"></div>
+            <div class="picker-head">
+              <span class="picker-num">04</span>
+            </div>
             <h3>社内ナレッジ検索AI</h3>
-            <p>社内ドキュメントをAIで意味検索</p>
+            <ul class="picker-points">
+              <li>社内ドキュメントを一括検索・チャット化</li>
+              <li>確認・教育コストを削減</li>
+            </ul>
+            <div class="picker-effect">効果: 業務スピード向上・属人化解消</div>
           </div>
-          <div class="choice">
-            <div class="choice-icon">&#128221;</div>
+
+          <div class="picker" onclick="togglePicker(this)" data-picker="5">
+            <div class="picker-check"></div>
+            <div class="picker-head">
+              <span class="picker-num">05</span>
+            </div>
             <h3>契約書・NDA生成AI</h3>
-            <p>テンプレから契約書を自動生成・チェック</p>
+            <ul class="picker-points">
+              <li>契約書を自動作成＋リスク検知</li>
+              <li>ミス・確認工数を削減</li>
+            </ul>
+            <div class="picker-effect">効果: 法務コスト削減・リスク回避</div>
           </div>
+
+          <div class="picker" onclick="togglePicker(this)" data-picker="6">
+            <div class="picker-check"></div>
+            <div class="picker-head">
+              <span class="picker-num">06</span>
+            </div>
+            <h3>意思決定AI（社長専用）</h3>
+            <ul class="picker-points">
+              <li>投資・案件・新規事業の判断をサポート</li>
+              <li>リスクとリターンを整理</li>
+            </ul>
+            <div class="picker-effect">効果: 意思決定の質向上・時間削減</div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1409,6 +1598,23 @@
   </div>
 
   <script>
+    // ===== Picker =====
+    function togglePicker(el) {
+      el.classList.toggle('checked');
+      const checked = [...document.querySelectorAll('.picker.checked')].map(p => p.dataset.picker);
+      localStorage.setItem('wiz-picker', JSON.stringify(checked));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('wiz-picker') || '[]');
+        saved.forEach(id => {
+          const el = document.querySelector(`.picker[data-picker="${id}"]`);
+          if (el) el.classList.add('checked');
+        });
+      } catch(e) {}
+    });
+
     // ===== Copy Prompt =====
     function copyPrompt(btn) {
       const block = btn.closest('.prompt-block');

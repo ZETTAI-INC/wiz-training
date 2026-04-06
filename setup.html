@@ -12,331 +12,432 @@
     body {
       font-family: 'Noto Sans JP', sans-serif;
       background: #fff;
-      color: #111;
+      color: #1a1a1a;
       line-height: 2;
       font-size: 17px;
       -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
-      max-width: 720px;
+    /* ===== Top Bar ===== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1a1a1a;
+      color: #fff;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .topbar-inner {
+      max-width: 760px;
+      width: 100%;
       margin: 0 auto;
-      padding: 80px 24px 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    /* ===== Header ===== */
-    h1 {
-      font-size: 40px;
-      font-weight: 900;
-      line-height: 1.3;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
-    .lead {
-      font-size: 18px;
-      color: #666;
-      margin-bottom: 64px;
-    }
-
-    h2 {
-      font-size: 28px;
-      font-weight: 900;
-      margin-top: 80px;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 3px solid #111;
-    }
-
-    h2 .num {
-      color: #d00;
-    }
-
-    h3 {
-      font-size: 20px;
+    .topbar-title {
+      font-size: 14px;
       font-weight: 700;
-      margin-top: 40px;
-      margin-bottom: 12px;
+      letter-spacing: 0.02em;
     }
 
-    p {
+    .topbar-title .red-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #d42b2b;
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .topbar-links {
+      display: flex;
+      gap: 0;
+    }
+
+    .topbar-links a {
+      color: #999;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+
+    .topbar-links a:hover {
+      color: #fff;
+    }
+
+    /* ===== Wrap ===== */
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: 72px 0 56px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
       margin-bottom: 16px;
     }
 
-    /* ===== Red line ===== */
-    .red {
-      color: #d00;
+    .hero h1 .accent {
+      color: #d42b2b;
     }
 
-    .bold {
+    .hero .lead {
+      font-size: 19px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    .hero .lead strong {
+      color: #1a1a1a;
+    }
+
+    /* ===== Section Card ===== */
+    .section-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin-bottom: 16px;
+      scroll-margin-top: 68px;
+      border: 1px solid #e8e8e6;
+    }
+
+    /* ===== Section Header ===== */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #d42b2b;
+      margin-bottom: 12px;
+    }
+
+    .section-label .line {
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: #d42b2b;
+    }
+
+    .section-card h2 {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .section-card > p {
+      color: #555;
+      margin-bottom: 16px;
     }
 
     /* ===== Prereq ===== */
-    .prereq-box {
-      border: 2px solid #111;
-      padding: 32px;
-      margin-bottom: 48px;
+    .prereq-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin-bottom: 16px;
+      border: 1px solid #e8e8e6;
     }
 
-    .prereq-box h3 {
-      margin-top: 0;
-      font-size: 22px;
+    .prereq-card h3 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 24px;
     }
 
-    .prereq-list {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0;
+    .prereq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-bottom: 28px;
     }
 
-    .prereq-list li {
-      font-size: 18px;
-      padding: 6px 0;
-      border-bottom: 1px solid #eee;
+    .prereq-item {
+      font-size: 17px;
+      padding: 14px 20px;
+      background: #f6f6f4;
+      border-radius: 10px;
+      font-weight: 700;
     }
 
-    .prereq-list li:last-child {
-      border-bottom: none;
-    }
-
-    /* ===== Warn box ===== */
-    .warn {
-      background: #fff5f5;
-      border-left: 4px solid #d00;
-      padding: 20px 24px;
-      margin: 24px 0;
+    .warn-block {
+      background: #fef2f2;
+      border-radius: 12px;
+      padding: 24px 28px;
       font-size: 16px;
       line-height: 1.9;
     }
 
-    .warn strong {
-      color: #d00;
-    }
-
-    /* ===== Note box ===== */
-    .note {
-      background: #f8f8f8;
-      border-left: 4px solid #111;
-      padding: 20px 24px;
-      margin: 24px 0;
-      font-size: 16px;
-      line-height: 1.9;
+    .warn-block strong {
+      color: #d42b2b;
     }
 
     /* ===== URL ===== */
-    .url-block {
-      margin: 20px 0;
-    }
-
-    .url-block .label {
-      font-size: 13px;
-      color: #999;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-    }
-
-    .url-block a {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 16px;
-      color: #d00;
+    .url-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f6f6f4;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
       text-decoration: none;
-      border-bottom: 1px solid #d00;
+      color: inherit;
+      transition: background 0.15s;
+    }
+
+    .url-row:hover {
+      background: #eee;
+    }
+
+    .url-row .url-label {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 2px;
+    }
+
+    .url-row .url-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      color: #d42b2b;
       word-break: break-all;
     }
 
-    .url-block a:hover {
-      background: #fff0f0;
+    .url-row .arrow {
+      margin-left: auto;
+      color: #ccc;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ===== Sub heading ===== */
+    .sub {
+      font-size: 20px;
+      font-weight: 900;
+      margin-top: 36px;
+      margin-bottom: 16px;
     }
 
     /* ===== Steps ===== */
     ol.steps {
       list-style: none;
       padding: 0;
-      margin: 16px 0;
-      counter-reset: step;
+      margin: 0 0 8px;
+      counter-reset: s;
     }
 
     ol.steps li {
-      counter-increment: step;
+      counter-increment: s;
       font-size: 17px;
-      padding: 10px 0;
-      padding-left: 48px;
+      padding: 14px 0 14px 52px;
       position: relative;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #f0f0ee;
     }
 
-    ol.steps li:last-child {
-      border-bottom: none;
-    }
+    ol.steps li:last-child { border-bottom: none; }
 
     ol.steps li::before {
-      content: counter(step);
+      content: counter(s);
       position: absolute;
       left: 0;
-      top: 10px;
+      top: 12px;
       font-family: 'IBM Plex Mono', monospace;
       font-weight: 600;
-      font-size: 15px;
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
+      font-size: 14px;
+      width: 34px;
+      height: 34px;
+      line-height: 34px;
       text-align: center;
-      background: #111;
+      background: #1a1a1a;
       color: #fff;
       border-radius: 50%;
     }
 
     /* ===== Check list ===== */
-    ul.check-list {
+    .confirm-list {
       list-style: none;
       padding: 0;
-      margin: 16px 0;
+      margin: 0;
     }
 
-    ul.check-list li {
+    .confirm-list li {
       font-size: 17px;
-      padding: 8px 0;
-      padding-left: 32px;
+      padding: 10px 0 10px 36px;
       position: relative;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #f0f0ee;
     }
 
-    ul.check-list li:last-child {
-      border-bottom: none;
-    }
+    .confirm-list li:last-child { border-bottom: none; }
 
-    ul.check-list li::before {
+    .confirm-list li::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 12px;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #111;
-      border-radius: 3px;
+      top: 14px;
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid #1a1a1a;
+      border-radius: 5px;
     }
 
-    /* ===== Trouble list ===== */
-    ul.trouble {
+    /* ===== Trouble ===== */
+    .trouble-list {
       list-style: none;
       padding: 0;
-      margin: 16px 0;
+      margin: 0;
     }
 
-    ul.trouble li {
+    .trouble-list li {
       font-size: 16px;
-      padding: 6px 0 6px 24px;
+      color: #666;
+      padding: 8px 0 8px 28px;
       position: relative;
-      color: #555;
     }
 
-    ul.trouble li::before {
+    .trouble-list li::before {
       content: '!';
       position: absolute;
-      left: 0;
+      left: 4px;
+      font-weight: 900;
+      color: #d42b2b;
+      font-size: 15px;
+    }
+
+    /* ===== Note block ===== */
+    .note-block {
+      background: #f6f6f4;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 16px;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.9;
+    }
+
+    .note-block a {
+      color: #d42b2b;
+      text-decoration: none;
       font-weight: 700;
-      color: #d00;
     }
 
-    /* ===== Username tags ===== */
-    .username-row {
+    .note-block a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Username ===== */
+    .usernames {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin: 12px 0 24px;
+      margin: 8px 0 24px;
     }
 
-    .username-row code {
+    .usernames code {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 15px;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 6px 16px;
-      border-radius: 4px;
+      background: #f6f6f4;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
     }
 
     /* ===== Code ===== */
     .code {
-      background: #111;
-      color: #f5f5f5;
+      background: #1a1a1a;
+      color: #eee;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 15px;
       line-height: 1.8;
-      padding: 24px;
-      border-radius: 4px;
+      padding: 24px 28px;
+      border-radius: 12px;
       margin: 16px 0;
       overflow-x: auto;
       position: relative;
     }
 
-    .code .comment {
-      color: #666;
-    }
+    .code .cm { color: #666; }
 
     .code-copy {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 14px;
+      right: 14px;
       background: #333;
-      color: #aaa;
+      color: #888;
       border: none;
       font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 3px;
+      padding: 4px 14px;
+      border-radius: 6px;
       cursor: pointer;
       font-family: 'Noto Sans JP', sans-serif;
+      transition: color 0.15s;
     }
 
-    .code-copy:hover {
-      color: #fff;
-    }
-
-    .code-copy.copied {
-      color: #d00;
-    }
-
-    /* ===== Divider ===== */
-    hr {
-      border: none;
-      border-top: 1px solid #ddd;
-      margin: 64px 0;
-    }
+    .code-copy:hover { color: #fff; }
+    .code-copy.copied { color: #d42b2b; }
 
     /* ===== Final Checklist ===== */
-    .final-checklist {
-      border: 3px solid #111;
-      padding: 40px 32px;
-      margin: 48px 0;
+    .final-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin-bottom: 16px;
+      border: 1px solid #e8e8e6;
     }
 
-    .final-checklist h2 {
-      margin-top: 0;
-      border-bottom: none;
-      padding-bottom: 0;
+    .final-card h2 {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 8px;
     }
 
-    .final-check-item {
+    .final-card .desc {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .fcheck {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid #eee;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0ee;
       cursor: pointer;
       user-select: none;
       font-size: 18px;
+      transition: opacity 0.15s;
     }
 
-    .final-check-item:last-of-type {
-      border-bottom: none;
+    .fcheck:last-of-type { border-bottom: none; }
+
+    .fcheck.checked { opacity: 0.4; }
+
+    .fcheck.checked .cbox {
+      background: #d42b2b;
+      border-color: #d42b2b;
     }
 
-    .final-check-item.checked .cbox {
-      background: #d00;
-      border-color: #d00;
-    }
-
-    .final-check-item.checked .cbox::after {
+    .fcheck.checked .cbox::after {
       content: '';
       display: block;
       width: 6px;
@@ -347,402 +448,453 @@
       margin: 1px 0 0 4px;
     }
 
-    .final-check-item.checked span {
+    .fcheck.checked .flabel {
       text-decoration: line-through;
-      color: #aaa;
     }
 
     .cbox {
-      width: 24px;
-      height: 24px;
-      border: 2.5px solid #111;
-      border-radius: 4px;
+      width: 26px;
+      height: 26px;
+      border: 2.5px solid #1a1a1a;
+      border-radius: 6px;
       flex-shrink: 0;
+      transition: all 0.15s;
     }
 
     .check-counter {
       text-align: right;
-      margin-top: 16px;
+      margin-top: 20px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 15px;
-      color: #999;
+      font-size: 16px;
+      color: #aaa;
     }
 
     .check-counter .count {
-      color: #d00;
+      color: #d42b2b;
       font-weight: 700;
     }
 
     /* ===== URL Table ===== */
+    .url-table-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin-bottom: 16px;
+      border: 1px solid #e8e8e6;
+    }
+
+    .url-table-card h2 {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 24px;
+    }
+
     .url-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 24px 0;
-      font-size: 15px;
-    }
-
-    .url-table th {
-      text-align: left;
-      font-weight: 700;
-      padding: 12px 16px;
-      border-bottom: 2px solid #111;
-      font-size: 14px;
     }
 
     .url-table td {
-      padding: 12px 16px;
-      border-bottom: 1px solid #eee;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0ee;
       vertical-align: top;
+      font-size: 15px;
     }
 
+    .url-table tr:last-child td { border-bottom: none; }
+
     .url-table td:first-child {
-      white-space: nowrap;
       font-weight: 700;
-      width: 160px;
+      white-space: nowrap;
+      padding-right: 24px;
+      width: 170px;
     }
 
     .url-table a {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 13px;
-      color: #d00;
+      color: #d42b2b;
       text-decoration: none;
       word-break: break-all;
     }
 
-    .url-table a:hover {
-      text-decoration: underline;
-    }
+    .url-table a:hover { text-decoration: underline; }
 
     /* ===== Footer ===== */
     .footer {
-      margin-top: 80px;
-      padding-top: 24px;
-      border-top: 1px solid #ddd;
+      padding: 40px 0 80px;
+      text-align: center;
       font-size: 14px;
-      color: #999;
+      color: #aaa;
     }
 
     .footer a {
-      color: #111;
+      color: #1a1a1a;
       text-decoration: none;
-      border-bottom: 1px solid #111;
+      font-weight: 700;
     }
+
+    .footer a:hover { text-decoration: underline; }
 
     /* ===== Mobile ===== */
     @media (max-width: 640px) {
-      .wrap { padding: 48px 20px 80px; }
-      h1 { font-size: 28px; }
-      h2 { font-size: 22px; margin-top: 56px; }
-      .prereq-box { padding: 24px 20px; }
-      .final-checklist { padding: 28px 20px; }
-      .url-table td:first-child { width: auto; }
+      .hero { padding: 48px 0 40px; }
+      .hero h1 { font-size: 32px; }
+      .section-card, .prereq-card, .final-card, .url-table-card { padding: 32px 24px; }
+      .section-card h2 { font-size: 26px; }
+      .topbar-links { display: none; }
+      .url-table td:first-child { width: auto; display: block; padding-right: 0; }
+      .url-table td { display: block; padding: 4px 0; }
+      .url-table tr { display: block; padding: 12px 0; border-bottom: 1px solid #f0f0ee; }
     }
 
     @media print {
-      .wrap { padding: 20px; }
-      .code-copy { display: none; }
+      .topbar { display: none; }
+      body { background: #fff; }
+      .section-card, .prereq-card, .final-card, .url-table-card { box-shadow: none; }
     }
   </style>
 </head>
 <body>
 
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-title"><span class="red-dot"></span>WIZ Claude Code 研修</div>
+    <nav class="topbar-links">
+      <a href="#antigravity">1. Antigravity</a>
+      <a href="#github">2. GitHub</a>
+      <a href="#github-org">3. GitHub組織</a>
+      <a href="#supabase">4. Supabase</a>
+      <a href="#supabase-org">5. Supabase組織</a>
+      <a href="#claude-yolo">6. claude-yolo</a>
+    </nav>
+  </div>
+</div>
+
 <div class="wrap">
 
-  <h1>Claude Code研修<br>事前準備手順書</h1>
-  <p class="lead">やることは全部で<strong>6つ</strong>です。研修開始前に終わらせてください。</p>
+  <!-- Hero -->
+  <div class="hero">
+    <h1>事前準備<span class="accent">.</span></h1>
+    <p class="lead">やることは全部で<strong>6つ</strong>です。研修開始前に終わらせてください。</p>
+  </div>
 
   <!-- Prereqs -->
-  <div class="prereq-box">
+  <div class="prereq-card">
     <h3>先に準備するもの</h3>
-    <ul class="prereq-list">
-      <li>パソコン</li>
-      <li>使えるメールアドレス 1つ</li>
-      <li>Chrome</li>
-      <li>インターネット</li>
-      <li>メモできるもの</li>
-    </ul>
-    <div class="warn">
+    <div class="prereq-grid">
+      <div class="prereq-item">パソコン</div>
+      <div class="prereq-item">メールアドレス 1つ</div>
+      <div class="prereq-item">Chrome</div>
+      <div class="prereq-item">インターネット</div>
+      <div class="prereq-item">メモできるもの</div>
+    </div>
+    <div class="warn-block">
       <strong>GitHubもSupabaseも同じメールアドレスで登録してください。</strong><br>
-      バラバラだと、組織招待のときにかなり詰まりやすいです。<br>
-      GitHubは認証済みメールが必要で、Supabaseの組織招待もメールで届きます。
+      バラバラだと組織招待のときに詰まりやすいです。GitHubは認証済みメールが必要で、Supabaseの組織招待もメールで届きます。
     </div>
   </div>
 
   <!-- ==================== -->
   <!-- 1. Antigravity -->
   <!-- ==================== -->
-  <h2 id="antigravity"><span class="num">1.</span> Antigravity を入れる</h2>
+  <div class="section-card" id="antigravity">
+    <div class="section-label"><span class="line"></span>STEP 1</div>
+    <h2>Antigravity を入れる</h2>
 
-  <div class="url-block">
-    <div class="label">開く場所</div>
-    <a href="https://antigravity.google/download" target="_blank" rel="noopener">https://antigravity.google/download</a>
-  </div>
+    <a class="url-row" href="https://antigravity.google/download" target="_blank" rel="noopener">
+      <div>
+        <div class="url-label">開く場所</div>
+        <div class="url-link">https://antigravity.google/download</div>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
 
-  <p>公式の入手先です。macOS / Windows / Linux 向けに配布されています。</p>
+    <p style="color:#666;">macOS / Windows / Linux 向けに配布されています。</p>
 
-  <h3>やること</h3>
-  <ol class="steps">
-    <li>上のURLを開く</li>
-    <li>自分のパソコンに合うものを選ぶ</li>
-    <li>ダウンロードする</li>
-    <li>インストールする</li>
-    <li>起動する</li>
-  </ol>
+    <div class="sub">やること</div>
+    <ol class="steps">
+      <li>上のURLを開く</li>
+      <li>自分のパソコンに合うものを選ぶ</li>
+      <li>ダウンロードする</li>
+      <li>インストールする</li>
+      <li>起動する</li>
+    </ol>
 
-  <h3>ここで確認すること</h3>
-  <ul class="check-list">
-    <li>アプリが開く</li>
-    <li>ログイン画面まで行ける</li>
-  </ul>
+    <div class="sub">ここで確認すること</div>
+    <ul class="confirm-list">
+      <li>アプリが開く</li>
+      <li>ログイン画面まで行ける</li>
+    </ul>
 
-  <h3>つまずきやすい点</h3>
-  <ul class="trouble">
-    <li>学校や会社のパソコンでインストール制限がある</li>
-    <li>Chromeが入っていない</li>
-    <li>ログイン用アカウントを間違える</li>
-  </ul>
+    <div class="sub">つまずきやすい点</div>
+    <ul class="trouble-list">
+      <li>学校や会社のパソコンでインストール制限がある</li>
+      <li>Chromeが入っていない</li>
+      <li>ログイン用アカウントを間違える</li>
+    </ul>
 
-  <div class="note">
-    公式Codelabでもインストールから使い始める流れが案内されています。<br>
-    <a href="https://codelabs.developers.google.com/getting-started-google-antigravity" target="_blank" rel="noopener" style="color:#d00;border-bottom:1px solid #d00;text-decoration:none;">公式 Codelab</a>
+    <div class="note-block">
+      公式Codelabでもインストールから使い始める流れが案内されています。<br>
+      <a href="https://codelabs.developers.google.com/getting-started-google-antigravity" target="_blank" rel="noopener">公式 Codelab &rarr;</a>
+    </div>
   </div>
 
   <!-- ==================== -->
   <!-- 2. GitHub登録 -->
   <!-- ==================== -->
-  <h2 id="github"><span class="num">2.</span> GitHub に登録する</h2>
+  <div class="section-card" id="github">
+    <div class="section-label"><span class="line"></span>STEP 2</div>
+    <h2>GitHub に登録する</h2>
 
-  <div class="url-block">
-    <div class="label">開く場所</div>
-    <a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a>
+    <a class="url-row" href="https://github.com/" target="_blank" rel="noopener">
+      <div>
+        <div class="url-label">開く場所</div>
+        <div class="url-link">https://github.com/</div>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <p style="color:#666;">Sign up を押して登録します。登録後は<strong style="color:#d42b2b;">メール認証が必要</strong>です。</p>
+
+    <div class="sub">やること</div>
+    <ol class="steps">
+      <li>GitHubを開く</li>
+      <li>Sign up を押す</li>
+      <li>メールアドレスを入れる</li>
+      <li>パスワードを決める</li>
+      <li>ユーザー名を決める</li>
+      <li>登録を完了する</li>
+      <li>届いたメールを開いて認証する</li>
+    </ol>
+
+    <div class="sub">ユーザー名の決め方</div>
+    <p style="color:#666;">研修で見ても誰かわかる名前にしてください。</p>
+    <div class="usernames">
+      <code>zettai-tanaka</code>
+      <code>yamada-dev</code>
+      <code>suzuki-study</code>
+    </div>
+
+    <div class="sub">ここで確認すること</div>
+    <ul class="confirm-list">
+      <li>GitHubにログインできる</li>
+      <li>メール認証が終わっている</li>
+    </ul>
+
+    <div class="sub">つまずきやすい点</div>
+    <ul class="trouble-list">
+      <li>メール認証を忘れる</li>
+      <li>ユーザー名を適当に決めて後で誰かわからなくなる</li>
+      <li>パスワードをメモしていない</li>
+    </ul>
   </div>
-
-  <p>github.com から Sign up を押して登録します。<br>
-  登録後は<strong class="red">メール認証が必要</strong>です。認証しないと基本的な作業ができません。</p>
-
-  <h3>やること</h3>
-  <ol class="steps">
-    <li>GitHubを開く</li>
-    <li>Sign up を押す</li>
-    <li>メールアドレスを入れる</li>
-    <li>パスワードを決める</li>
-    <li>ユーザー名を決める</li>
-    <li>登録を完了する</li>
-    <li>届いたメールを開いて認証する</li>
-  </ol>
-
-  <h3>ユーザー名の決め方</h3>
-  <p>変な名前にしないで、研修で見ても誰かわかる名前にしてください。</p>
-  <div class="username-row">
-    <code>zettai-tanaka</code>
-    <code>yamada-dev</code>
-    <code>suzuki-study</code>
-  </div>
-
-  <h3>ここで確認すること</h3>
-  <ul class="check-list">
-    <li>GitHubにログインできる</li>
-    <li>メール認証が終わっている</li>
-  </ul>
-
-  <h3>つまずきやすい点</h3>
-  <ul class="trouble">
-    <li>メール認証を忘れる</li>
-    <li>ユーザー名を適当に決めて後で誰かわからなくなる</li>
-    <li>パスワードをメモしていない</li>
-  </ul>
 
   <!-- ==================== -->
   <!-- 3. GitHub組織 -->
   <!-- ==================== -->
-  <h2 id="github-org"><span class="num">3.</span> GitHub の組織に入る</h2>
+  <div class="section-card" id="github-org">
+    <div class="section-label"><span class="line"></span>STEP 3</div>
+    <h2>GitHub の組織に入る</h2>
 
-  <p>GitHubには個人アカウントと組織アカウントがあります。<br>
-  研修では、運営側の組織に参加してコードを見る流れになります。</p>
+    <p style="color:#666;">GitHubには個人アカウントと組織アカウントがあります。研修では運営側の組織に参加してコードを見る流れです。</p>
 
-  <h3>招待が来たらやること</h3>
-  <ol class="steps">
-    <li>GitHubに登録したメールアドレスを開く</li>
-    <li>招待メールを探す</li>
-    <li>メールの中の参加リンクを押す</li>
-    <li>GitHubで承認する</li>
-  </ol>
+    <div class="sub">招待が来たらやること</div>
+    <ol class="steps">
+      <li>GitHubに登録したメールアドレスを開く</li>
+      <li>招待メールを探す</li>
+      <li>メールの中の参加リンクを押す</li>
+      <li>GitHubで承認する</li>
+    </ol>
 
-  <h3>ここで確認すること</h3>
-  <ul class="check-list">
-    <li>組織ページが見える</li>
-    <li>指定されたリポジトリが見える</li>
-  </ul>
+    <div class="sub">ここで確認すること</div>
+    <ul class="confirm-list">
+      <li>組織ページが見える</li>
+      <li>指定されたリポジトリが見える</li>
+    </ul>
 
-  <h3>メールが来ないとき</h3>
-  <ul class="trouble">
-    <li>迷惑メールを見る</li>
-    <li>GitHub登録メールが合っているか確認する</li>
-    <li>運営に「GitHubユーザー名」を伝える</li>
-  </ul>
+    <div class="sub">メールが来ないとき</div>
+    <ul class="trouble-list">
+      <li>迷惑メールを見る</li>
+      <li>GitHub登録メールが合っているか確認する</li>
+      <li>運営に「GitHubユーザー名」を伝える</li>
+    </ul>
+  </div>
 
   <!-- ==================== -->
   <!-- 4. Supabase登録 -->
   <!-- ==================== -->
-  <h2 id="supabase"><span class="num">4.</span> Supabase に登録する</h2>
+  <div class="section-card" id="supabase">
+    <div class="section-label"><span class="line"></span>STEP 4</div>
+    <h2>Supabase に登録する</h2>
 
-  <div class="url-block">
-    <div class="label">ダッシュボード</div>
-    <a href="https://supabase.com/dashboard/sign-in" target="_blank" rel="noopener">https://supabase.com/dashboard/sign-in</a>
+    <a class="url-row" href="https://supabase.com/dashboard/sign-in" target="_blank" rel="noopener">
+      <div>
+        <div class="url-label">ダッシュボード</div>
+        <div class="url-link">https://supabase.com/dashboard/sign-in</div>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <a class="url-row" href="https://supabase.com/" target="_blank" rel="noopener">
+      <div>
+        <div class="url-label">公式サイト</div>
+        <div class="url-link">https://supabase.com/</div>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <p style="color:#666;">Supabaseは認証やデータベースを使うためのサービスです。</p>
+
+    <div class="sub">やること</div>
+    <ol class="steps">
+      <li>Supabaseを開く</li>
+      <li>サインアップする</li>
+      <li>メールアドレスを入れる</li>
+      <li>パスワードを決める</li>
+      <li>必要ならメール認証をする</li>
+      <li>ダッシュボードに入る</li>
+    </ol>
+
+    <div class="sub">ここで確認すること</div>
+    <ul class="confirm-list">
+      <li>Supabaseにログインできる</li>
+      <li>ダッシュボード画面が見える</li>
+    </ul>
+
+    <div class="sub">つまずきやすい点</div>
+    <ul class="trouble-list">
+      <li>GitHubと別のメールで登録してしまう</li>
+      <li>ログインしたつもりで、実は別アカウントに入っている</li>
+    </ul>
   </div>
-
-  <div class="url-block">
-    <div class="label">公式サイト</div>
-    <a href="https://supabase.com/" target="_blank" rel="noopener">https://supabase.com/</a>
-  </div>
-
-  <p>Supabaseは認証やデータベースを使うためのサービスです。<br>
-  公式サイトからダッシュボードに入り、アカウントを作成します。</p>
-
-  <h3>やること</h3>
-  <ol class="steps">
-    <li>Supabaseを開く</li>
-    <li>サインアップする</li>
-    <li>メールアドレスを入れる</li>
-    <li>パスワードを決める</li>
-    <li>必要ならメール認証をする</li>
-    <li>ダッシュボードに入る</li>
-  </ol>
-
-  <h3>ここで確認すること</h3>
-  <ul class="check-list">
-    <li>Supabaseにログインできる</li>
-    <li>ダッシュボード画面が見える</li>
-  </ul>
-
-  <h3>つまずきやすい点</h3>
-  <ul class="trouble">
-    <li>GitHubと別のメールで登録してしまう</li>
-    <li>ログインしたつもりで、実は別アカウントに入っている</li>
-  </ul>
 
   <!-- ==================== -->
   <!-- 5. Supabase組織 -->
   <!-- ==================== -->
-  <h2 id="supabase-org"><span class="num">5.</span> Supabase の組織に入る</h2>
+  <div class="section-card" id="supabase-org">
+    <div class="section-label"><span class="line"></span>STEP 5</div>
+    <h2>Supabase の組織に入る</h2>
 
-  <p>組織のTeam設定から招待が届きます。<br>
-  <strong class="red">招待リンクは24時間有効</strong>です。届いたら早めに対応してください。</p>
+    <p style="color:#666;">組織のTeam設定から招待が届きます。<strong style="color:#d42b2b;">招待リンクは24時間有効</strong>です。</p>
 
-  <h3>招待が来たらやること</h3>
-  <ol class="steps">
-    <li>Supabaseに登録したメールアドレスを開く</li>
-    <li>招待メールを探す</li>
-    <li>メールの中のリンクを押す</li>
-    <li>参加する</li>
-    <li>指定された組織やプロジェクトが見えるか確認する</li>
-  </ol>
+    <div class="sub">招待が来たらやること</div>
+    <ol class="steps">
+      <li>Supabaseに登録したメールアドレスを開く</li>
+      <li>招待メールを探す</li>
+      <li>メールの中のリンクを押す</li>
+      <li>参加する</li>
+      <li>指定された組織やプロジェクトが見えるか確認する</li>
+    </ol>
 
-  <h3>ここで確認すること</h3>
-  <ul class="check-list">
-    <li>組織が見える</li>
-    <li>指定されたプロジェクトが見える</li>
-  </ul>
+    <div class="sub">ここで確認すること</div>
+    <ul class="confirm-list">
+      <li>組織が見える</li>
+      <li>指定されたプロジェクトが見える</li>
+    </ul>
 
-  <h3>メールが来ないとき</h3>
-  <ul class="trouble">
-    <li>迷惑メールを見る</li>
-    <li>登録メールが合っているか確認する</li>
-    <li>24時間を過ぎたら運営に再送してもらう</li>
-  </ul>
+    <div class="sub">メールが来ないとき</div>
+    <ul class="trouble-list">
+      <li>迷惑メールを見る</li>
+      <li>登録メールが合っているか確認する</li>
+      <li>24時間を過ぎたら運営に再送してもらう</li>
+    </ul>
+  </div>
 
   <!-- ==================== -->
   <!-- 6. claude-yolo -->
   <!-- ==================== -->
-  <h2 id="claude-yolo"><span class="num">6.</span> claude-yolo を入れる</h2>
+  <div class="section-card" id="claude-yolo">
+    <div class="section-label"><span class="line"></span>STEP 6</div>
+    <h2>claude-yolo を入れる</h2>
 
-  <div class="url-block">
-    <div class="label">リポジトリ</div>
-    <a href="https://github.com/eastlondoner/claude-yolo" target="_blank" rel="noopener">https://github.com/eastlondoner/claude-yolo</a>
+    <a class="url-row" href="https://github.com/eastlondoner/claude-yolo" target="_blank" rel="noopener">
+      <div>
+        <div class="url-label">リポジトリ</div>
+        <div class="url-link">https://github.com/eastlondoner/claude-yolo</div>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <p style="color:#666;">Claude CLIをラップするツールです。YOLOモードは安全チェックを回避するため、データ削除や情報漏えいの危険があります。</p>
+
+    <div class="warn-block">
+      <strong>最初はSAFEモードだけで使ってください。</strong><br>
+      初心者に「とりあえず全部飛ばしていい」と教えると、何が危ないのか理解しないまま進みます。研修ではSAFE固定で十分です。
+    </div>
+
+    <div class="sub">入れ方</div>
+    <div class="code">
+      <button class="code-copy" onclick="copyCode(this, 'npm install -g github:maxprez/claude-yolo')">コピー</button>
+      npm install -g github:maxprez/claude-yolo
+    </div>
+
+    <div class="sub">起動確認</div>
+    <div class="code">
+      <button class="code-copy" onclick="copyCode(this, 'claude-yolo --safe')">コピー</button>
+      <span class="cm"># SAFEモードで起動</span><br>
+      claude-yolo --safe<br>
+      <br>
+      <span class="cm"># または</span><br>
+      claude-yolo --no-yolo
+    </div>
+
+    <div class="sub">モードの確認と切り替え</div>
+    <div class="code">
+      <button class="code-copy" onclick="copyCode(this, 'claude-yolo mode')">コピー</button>
+      <span class="cm"># 現在のモードを確認</span><br>
+      claude-yolo mode<br>
+      <br>
+      <span class="cm"># SAFEモードに切り替え</span><br>
+      claude-yolo mode safe
+    </div>
+
+    <div class="sub">ここで確認すること</div>
+    <ul class="confirm-list">
+      <li>インストールが完了した</li>
+      <li>SAFEモードで起動できた</li>
+    </ul>
   </div>
-
-  <p>Claude CLIをラップするツールです。<br>
-  YOLOモードは安全チェックを回避するため、データ削除や情報漏えいの危険があります。</p>
-
-  <div class="warn">
-    <strong>最初はSAFEモードだけで使ってください。</strong><br>
-    初心者に「とりあえず全部飛ばしていい」と教えると、何が危ないのか理解しないまま進みます。<br>
-    研修では SAFE 固定で十分です。
-  </div>
-
-  <h3>入れ方</h3>
-  <p>ターミナルを開いて、以下を実行します。</p>
-  <div class="code">
-    <button class="code-copy" onclick="copyCode(this, 'npm install -g github:maxprez/claude-yolo')">コピー</button>
-    npm install -g github:maxprez/claude-yolo
-  </div>
-
-  <h3>起動確認</h3>
-  <div class="code">
-    <button class="code-copy" onclick="copyCode(this, 'claude-yolo --safe')">コピー</button>
-    <span class="comment"># SAFEモードで起動</span><br>
-    claude-yolo --safe<br>
-    <br>
-    <span class="comment"># または</span><br>
-    claude-yolo --no-yolo
-  </div>
-
-  <h3>モードの確認と切り替え</h3>
-  <div class="code">
-    <button class="code-copy" onclick="copyCode(this, 'claude-yolo mode')">コピー</button>
-    <span class="comment"># 現在のモードを確認</span><br>
-    claude-yolo mode<br>
-    <br>
-    <span class="comment"># SAFEモードに切り替え</span><br>
-    claude-yolo mode safe
-  </div>
-
-  <h3>ここで確認すること</h3>
-  <ul class="check-list">
-    <li>インストールが完了した</li>
-    <li>SAFEモードで起動できた</li>
-  </ul>
-
-  <hr>
 
   <!-- ==================== -->
   <!-- Final Checklist -->
   <!-- ==================== -->
-  <div class="final-checklist" id="final-check">
+  <div class="final-card" id="final-check">
     <h2>最終チェック</h2>
-    <p style="color:#666;margin-bottom:20px;">全部できたら、1つずつ確認してください。クリックでチェックできます。</p>
+    <p class="desc">全部できたらクリックして確認してください。</p>
 
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>Antigravity を入れた</span>
+      <span class="flabel">Antigravity を入れた</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>GitHub に登録した</span>
+      <span class="flabel">GitHub に登録した</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>GitHub のメール認証が終わった</span>
+      <span class="flabel">GitHub のメール認証が終わった</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>GitHub の組織に入れた</span>
+      <span class="flabel">GitHub の組織に入れた</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>Supabase に登録した</span>
+      <span class="flabel">Supabase に登録した</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>Supabase の組織に入れた</span>
+      <span class="flabel">Supabase の組織に入れた</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>claude-yolo を入れた</span>
+      <span class="flabel">claude-yolo を入れた</span>
     </div>
-    <div class="final-check-item" onclick="toggleCheck(this)">
+    <div class="fcheck" onclick="toggleCheck(this)">
       <div class="cbox"></div>
-      <span>SAFE モードで起動できた</span>
+      <span class="flabel">SAFE モードで起動できた</span>
     </div>
 
     <div class="check-counter">
@@ -750,54 +902,25 @@
     </div>
   </div>
 
-  <hr>
-
   <!-- ==================== -->
   <!-- URL Table -->
   <!-- ==================== -->
-  <h2>URLまとめ</h2>
+  <div class="url-table-card">
+    <h2>URLまとめ</h2>
+    <table class="url-table">
+      <tbody>
+        <tr><td>Antigravity</td><td><a href="https://antigravity.google/download" target="_blank" rel="noopener">https://antigravity.google/download</a></td></tr>
+        <tr><td>Antigravity ガイド</td><td><a href="https://codelabs.developers.google.com/getting-started-google-antigravity" target="_blank" rel="noopener">https://codelabs.developers.google.com/getting-started-google-antigravity</a></td></tr>
+        <tr><td>GitHub</td><td><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></td></tr>
+        <tr><td>GitHub 登録ガイド</td><td><a href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github" target="_blank" rel="noopener">https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github</a></td></tr>
+        <tr><td>Supabase</td><td><a href="https://supabase.com/" target="_blank" rel="noopener">https://supabase.com/</a></td></tr>
+        <tr><td>Supabase ダッシュボード</td><td><a href="https://supabase.com/dashboard/sign-in" target="_blank" rel="noopener">https://supabase.com/dashboard/sign-in</a></td></tr>
+        <tr><td>Supabase 権限管理</td><td><a href="https://supabase.com/docs/guides/platform/access-control" target="_blank" rel="noopener">https://supabase.com/docs/guides/platform/access-control</a></td></tr>
+        <tr><td>claude-yolo</td><td><a href="https://github.com/eastlondoner/claude-yolo" target="_blank" rel="noopener">https://github.com/eastlondoner/claude-yolo</a></td></tr>
+      </tbody>
+    </table>
+  </div>
 
-  <table class="url-table">
-    <thead>
-      <tr><th>サービス</th><th>URL</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Antigravity</td>
-        <td><a href="https://antigravity.google/download" target="_blank" rel="noopener">https://antigravity.google/download</a></td>
-      </tr>
-      <tr>
-        <td>Antigravity ガイド</td>
-        <td><a href="https://codelabs.developers.google.com/getting-started-google-antigravity" target="_blank" rel="noopener">https://codelabs.developers.google.com/getting-started-google-antigravity</a></td>
-      </tr>
-      <tr>
-        <td>GitHub</td>
-        <td><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></td>
-      </tr>
-      <tr>
-        <td>GitHub 登録ガイド</td>
-        <td><a href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github" target="_blank" rel="noopener">https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github</a></td>
-      </tr>
-      <tr>
-        <td>Supabase</td>
-        <td><a href="https://supabase.com/" target="_blank" rel="noopener">https://supabase.com/</a></td>
-      </tr>
-      <tr>
-        <td>Supabase ダッシュボード</td>
-        <td><a href="https://supabase.com/dashboard/sign-in" target="_blank" rel="noopener">https://supabase.com/dashboard/sign-in</a></td>
-      </tr>
-      <tr>
-        <td>Supabase 権限管理</td>
-        <td><a href="https://supabase.com/docs/guides/platform/access-control" target="_blank" rel="noopener">https://supabase.com/docs/guides/platform/access-control</a></td>
-      </tr>
-      <tr>
-        <td>claude-yolo</td>
-        <td><a href="https://github.com/eastlondoner/claude-yolo" target="_blank" rel="noopener">https://github.com/eastlondoner/claude-yolo</a></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Footer -->
   <div class="footer">
     <a href="index.html">研修スライドに戻る</a>
   </div>
@@ -807,10 +930,9 @@
 <script>
   function toggleCheck(el) {
     el.classList.toggle('checked');
-    const count = document.querySelectorAll('.final-check-item.checked').length;
+    const count = document.querySelectorAll('.fcheck.checked').length;
     document.getElementById('checkCount').textContent = count;
-    // Save
-    const items = document.querySelectorAll('.final-check-item');
+    const items = document.querySelectorAll('.fcheck');
     const state = [...items].map(e => e.classList.contains('checked'));
     localStorage.setItem('wiz-setup-checklist', JSON.stringify(state));
   }
@@ -823,13 +945,12 @@
     });
   }
 
-  // Load saved checklist
   (function() {
     const saved = localStorage.getItem('wiz-setup-checklist');
     if (!saved) return;
     try {
       const state = JSON.parse(saved);
-      const items = document.querySelectorAll('.final-check-item');
+      const items = document.querySelectorAll('.fcheck');
       state.forEach((checked, i) => { if (checked && items[i]) items[i].classList.add('checked'); });
       document.getElementById('checkCount').textContent = state.filter(Boolean).length;
     } catch(e) {}

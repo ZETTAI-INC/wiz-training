@@ -10,19 +10,19 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface2: #1a1a2e;
-      --border: #2a2a3e;
-      --text: #e8e8f0;
-      --text-muted: #8888a0;
-      --accent: #6c5ce7;
-      --accent-light: #a29bfe;
-      --accent-glow: rgba(108, 92, 231, 0.3);
-      --green: #00cec9;
-      --orange: #fdcb6e;
-      --pink: #fd79a8;
-      --gradient: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+      --bg: #fff;
+      --surface: #fff;
+      --surface2: #f6f6f4;
+      --border: #e8e8e6;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --accent: #d42b2b;
+      --accent-light: #d42b2b;
+      --accent-glow: rgba(212, 43, 43, 0.15);
+      --green: #1a8a1a;
+      --orange: #c47800;
+      --pink: #d42b2b;
+      --gradient: linear-gradient(135deg, #1a1a1a, #1a1a1a);
     }
 
     body {
@@ -52,7 +52,7 @@
       left: 0;
       right: 0;
       height: 60px;
-      background: rgba(10, 10, 15, 0.9);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -65,10 +65,7 @@
     .nav-logo {
       font-weight: 900;
       font-size: 18px;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
 
     .nav-info {
@@ -193,10 +190,10 @@
     .slide-title-main .badge {
       display: inline-block;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--accent-light);
+      color: var(--accent);
       border: 1px solid var(--accent);
       padding: 6px 16px;
       border-radius: 20px;
@@ -208,10 +205,7 @@
       font-weight: 900;
       line-height: 1.2;
       margin-bottom: 16px;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
 
     .slide-title-main .subtitle {
@@ -255,12 +249,9 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 120px;
       font-weight: 900;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
       line-height: 1;
-      opacity: 0.5;
+      opacity: 0.3;
     }
 
     .section-title {
@@ -288,9 +279,9 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       font-weight: 700;
-      color: var(--accent-light);
-      background: rgba(108, 92, 231, 0.15);
-      border: 1px solid rgba(108, 92, 231, 0.3);
+      color: var(--accent);
+      background: rgba(212, 43, 43, 0.08);
+      border: 1px solid rgba(212, 43, 43, 0.2);
       padding: 4px 10px;
       border-radius: 6px;
       white-space: nowrap;
@@ -320,7 +311,7 @@
     .card:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
 
     .card-icon {
@@ -400,9 +391,9 @@
     }
 
     .choice:hover {
-      border-color: var(--pink);
+      border-color: var(--accent);
       transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(253, 121, 168, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
 
     .choice .choice-icon {
@@ -434,10 +425,14 @@
       margin-top: 20px;
     }
 
-    .code-block .comment { color: #6272a4; }
-    .code-block .keyword { color: #ff79c6; }
-    .code-block .string { color: #f1fa8c; }
-    .code-block .function { color: #50fa7b; }
+    .code-block {
+      background: #1a1a1a;
+      color: #eee;
+    }
+    .code-block .comment { color: #888; }
+    .code-block .keyword { color: #f47067; }
+    .code-block .string { color: #a5d6ff; }
+    .code-block .function { color: #7ee787; }
 
     /* Tips List */
     .tips-grid {
@@ -481,8 +476,8 @@
 
     /* Highlight Box */
     .highlight-box {
-      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1));
-      border: 1px solid rgba(108, 92, 231, 0.3);
+      background: #f6f6f4;
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 32px;
       margin-top: 24px;
@@ -493,7 +488,7 @@
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: var(--accent-light);
+      color: var(--text);
     }
 
     .highlight-box p {
@@ -552,7 +547,7 @@
     .toc-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(10px);
       z-index: 200;
       display: none;
@@ -582,10 +577,7 @@
       font-size: 24px;
       font-weight: 700;
       margin-bottom: 24px;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
     }
 
     .toc-item {
@@ -650,26 +642,7 @@
 
     /* ===== Background Decoration ===== */
     .bg-glow {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      filter: blur(150px);
-      opacity: 0.07;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .bg-glow-1 {
-      top: -200px;
-      right: -200px;
-      background: var(--accent);
-    }
-
-    .bg-glow-2 {
-      bottom: -200px;
-      left: -200px;
-      background: var(--pink);
+      display: none;
     }
   </style>
 </head>
@@ -755,7 +728,7 @@
         </div>
         <div class="highlight-box animate-in delay-4">
           <h3>詳しい手順書はこちら</h3>
-          <p><a href="setup.html" target="_blank" style="color:var(--accent-light);text-decoration:underline;font-size:18px;">事前準備手順書を開く &rarr;</a><br>
+          <p><a href="setup.html" target="_blank" style="color:var(--accent);text-decoration:underline;font-size:18px;">事前準備手順書を開く &rarr;</a><br>
           <span style="font-size:13px;">受講者に共有してください。チェックリスト付きです。</span></p>
         </div>
       </div>
@@ -902,7 +875,7 @@
           <h3>何を作ってもOK</h3>
           <p>ポートフォリオサイト、ミニゲーム、ツールアプリ...<br>
             Claude Codeにアイデアを伝えて、一緒に作り上げましょう。<br>
-            <strong style="color:var(--accent-light);">「こういうの作りたい」の一言からスタート！</strong></p>
+            <strong style="color:var(--accent);">「こういうの作りたい」の一言からスタート！</strong></p>
         </div>
       </div>
     </div>
@@ -1207,8 +1180,8 @@
         <h1 class="animate-in delay-2" style="font-size:48px;">お疲れ様でした！</h1>
         <p class="subtitle animate-in delay-3">Claude Codeと一緒に、新しい開発体験を楽しみましょう</p>
         <div class="tech-stack animate-in delay-4" style="margin-top:40px;">
-          <span class="tech-tag" style="border-color:var(--accent);color:var(--accent-light);">Build with AI</span>
-          <span class="tech-tag" style="border-color:var(--pink);color:var(--pink);">Ship Faster</span>
+          <span class="tech-tag" style="border-color:var(--accent);color:var(--accent);">Build with AI</span>
+          <span class="tech-tag" style="border-color:var(--text);color:var(--text);">Ship Faster</span>
           <span class="tech-tag" style="border-color:var(--green);color:var(--green);">Learn by Doing</span>
         </div>
       </div>

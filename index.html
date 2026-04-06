@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WIZ - Claude Code バイブコーディング研修</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a2e;
+      --border: #2a2a3e;
+      --text: #e8e8f0;
+      --text-muted: #8888a0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --accent-glow: rgba(108, 92, 231, 0.3);
+      --green: #00cec9;
+      --orange: #fdcb6e;
+      --pink: #fd79a8;
+      --gradient: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ===== Progress Bar ===== */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+    }
+
+    /* ===== Navigation ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 50;
+    }
+
+    .nav-logo {
+      font-weight: 900;
+      font-size: 18px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .nav-counter {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--surface2);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    /* ===== Session Dots ===== */
+    .session-dots {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .session-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .session-dot:hover {
+      background: var(--accent-light);
+      transform: scale(1.3);
+    }
+
+    .session-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+      transform: scale(1.3);
+    }
+
+    .session-dot.completed {
+      background: var(--green);
+    }
+
+    .session-dot-label {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .session-dot:hover .session-dot-label {
+      opacity: 1;
+    }
+
+    /* ===== Slide Container ===== */
+    .slides-container {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 80px;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+
+    .slide-content {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    /* ===== Slide Types ===== */
+
+    /* Title Slide */
+    .slide-title-main {
+      text-align: center;
+    }
+
+    .slide-title-main .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      border: 1px solid var(--accent);
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+    }
+
+    .slide-title-main h1 {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slide-title-main .subtitle {
+      font-size: 22px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .slide-title-main .powered-by {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .slide-title-main .tech-stack {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .slide-title-main .tech-tag {
+      font-size: 13px;
+      padding: 6px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+    }
+
+    /* Section Title Slide */
+    .slide-section {
+      text-align: center;
+    }
+
+    .section-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 120px;
+      font-weight: 900;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 700;
+      margin-top: -10px;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* Content Slide */
+    .slide-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .slide-heading .session-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-light);
+      background: rgba(108, 92, 231, 0.15);
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .slide-heading h2 {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+    }
+
+    .card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+
+    .step:hover {
+      border-color: var(--accent);
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 40px;
+    }
+
+    .step-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Choice Grid */
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .choice {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .choice:hover {
+      border-color: var(--pink);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(253, 121, 168, 0.15);
+    }
+
+    .choice .choice-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .choice h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .choice p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .code-block .comment { color: #6272a4; }
+    .code-block .keyword { color: #ff79c6; }
+    .code-block .string { color: #f1fa8c; }
+    .code-block .function { color: #50fa7b; }
+
+    /* Tips List */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .tip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+
+    .tip:hover {
+      border-color: var(--orange);
+    }
+
+    .tip-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .tip h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tip p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1));
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .highlight-box h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--accent-light);
+    }
+
+    .highlight-box p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== Controls ===== */
+    .controls {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 50;
+    }
+
+    .control-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .control-btn:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+    }
+
+    .control-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .controls-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* ===== Table of Contents ===== */
+    .toc-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .toc-overlay.visible {
+      display: flex;
+      opacity: 1;
+    }
+
+    .toc-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .toc-panel h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .toc-item:hover {
+      background: var(--surface2);
+    }
+
+    .toc-item .toc-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent-light);
+      min-width: 30px;
+    }
+
+    .toc-item .toc-label {
+      font-size: 15px;
+    }
+
+    .toc-item .toc-session {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ===== Keyboard hint ===== */
+    kbd {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide.active .animate-in {
+      animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .slide.active .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .slide.active .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .slide.active .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .slide.active .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .slide.active .delay-5 { animation-delay: 0.5s; opacity: 0; }
+    .slide.active .delay-6 { animation-delay: 0.6s; opacity: 0; }
+
+    /* ===== Background Decoration ===== */
+    .bg-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-glow-1 {
+      top: -200px;
+      right: -200px;
+      background: var(--accent);
+    }
+
+    .bg-glow-2 {
+      bottom: -200px;
+      left: -200px;
+      background: var(--pink);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-logo">WIZ Claude Code 研修</div>
+    <div class="nav-info">
+      <span id="sessionLabel">Session 0</span>
+      <span class="nav-counter" id="slideCounter">1 / 20</span>
+      <button class="control-btn" style="width:32px;height:32px;font-size:14px;" onclick="toggleTOC()" title="目次 (T)">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- Session Dots -->
+  <div class="session-dots" id="sessionDots"></div>
+
+  <!-- Table of Contents -->
+  <div class="toc-overlay" id="tocOverlay" onclick="if(event.target===this)toggleTOC()">
+    <div class="toc-panel">
+      <h2>目次</h2>
+      <div id="tocList"></div>
+    </div>
+  </div>
+
+  <!-- Slides -->
+  <div class="slides-container" id="slidesContainer">
+
+    <!-- ========== SLIDE 0: Title ========== -->
+    <div class="slide active" data-session="0">
+      <div class="slide-content slide-title-main">
+        <div class="badge animate-in delay-1">WIZ Training Program 2026</div>
+        <h1 class="animate-in delay-2">Claude Code<br>バイブコーディング研修</h1>
+        <p class="subtitle animate-in delay-3">AIと一緒にプロダクトを作る、新しい開発体験</p>
+        <div class="tech-stack animate-in delay-4">
+          <span class="tech-tag">Claude Code</span>
+          <span class="tech-tag">Supabase</span>
+          <span class="tech-tag">Gemini API</span>
+          <span class="tech-tag">Next.js / React</span>
+        </div>
+        <div class="powered-by animate-in delay-5">
+          <kbd>&larr;</kbd> <kbd>&rarr;</kbd> で操作 &nbsp;|&nbsp; <kbd>T</kbd> で目次
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 1: Session 0 - 環境構築 ========== -->
+    <div class="slide" data-session="0">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 0</span>
+          <h2>環境構築 / セットアップ</h2>
+        </div>
+        <div class="steps">
+          <div class="step animate-in delay-1">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <h3>Antigravity (Google IDE) をダウンロード</h3>
+              <p>GoogleのクラウドIDEをインストールし、開発環境を整えます</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-2">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <h3>Supabase に登録 / 組織に参加</h3>
+              <p>バックエンド・データベースとして使うSupabaseのアカウントを作成し、研修用の組織に参加します</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-3">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <h3>GitHub に登録 / 組織に参加</h3>
+              <p>ソースコード管理用のGitHubアカウントを作成し、WIZ組織に参加します</p>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-box animate-in delay-4">
+          <h3>詳しい手順書はこちら</h3>
+          <p><a href="setup.html" target="_blank" style="color:var(--accent-light);text-decoration:underline;font-size:18px;">事前準備手順書を開く &rarr;</a><br>
+          <span style="font-size:13px;">受講者に共有してください。チェックリスト付きです。</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 2: Session 1 - タイトル ========== -->
+    <div class="slide" data-session="1">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">01</div>
+        <h2 class="section-title animate-in delay-2">YouTube クローン作成</h2>
+        <p class="section-desc animate-in delay-3">Claude Codeに指示を出しながら、YouTube風のWebアプリを一から構築します</p>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 3: Session 1 - フロントエンド構築 ========== -->
+    <div class="slide" data-session="1">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 1</span>
+          <h2>フロントエンドを構築</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card">
+            <div class="card-icon">&#128196;</div>
+            <h3>トップページ</h3>
+            <p>動画一覧のグリッドレイアウト、ヘッダー、サイドバーをClaude Codeで生成</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#127912;</div>
+            <h3>サムネイル & カード</h3>
+            <p>動画サムネイル、タイトル、チャンネル名、再生回数を表示するカードコンポーネント</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128269;</div>
+            <h3>検索・フィルター</h3>
+            <p>ジャンル別タブやキーワード検索機能をAIに指示して実装</p>
+          </div>
+        </div>
+        <div class="highlight-box animate-in delay-2">
+          <h3>ポイント</h3>
+          <p>Claude Codeに「YouTubeのようなトップページを作って」と指示するだけで、基本構造が生成されます。<br>そこから細かい調整を会話しながら進めていきましょう。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 4: Session 1 - 詳細ページ ========== -->
+    <div class="slide" data-session="1">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 1</span>
+          <h2>詳細ページを構築</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card">
+            <div class="card-icon">&#9654;&#65039;</div>
+            <h3>動画プレーヤー</h3>
+            <p>メインの動画再生エリアとコントロールUI</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128172;</div>
+            <h3>コメントセクション</h3>
+            <p>コメント一覧と投稿フォームの実装</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128279;</div>
+            <h3>関連動画</h3>
+            <p>サイドバーにおすすめ動画リストを表示</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 5: Session 1 - サムネイル入れ替え ========== -->
+    <div class="slide" data-session="1">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 1</span>
+          <h2>ジャンル別サムネイル入れ替え</h2>
+        </div>
+        <div class="steps">
+          <div class="step animate-in delay-1">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <h3>ジャンルカテゴリの定義</h3>
+              <p>音楽、ゲーム、ニュース、スポーツなどのジャンルを設定</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-2">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <h3>サムネイル画像の準備</h3>
+              <p>各ジャンルに対応するサムネイル画像をセットアップ</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-3">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <h3>動的切り替えの実装</h3>
+              <p>ジャンルタブ選択時にサムネイルが切り替わるロジックをClaude Codeで生成</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 6: Session 1 - モバイルレイアウト ========== -->
+    <div class="slide" data-session="1">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 1</span>
+          <h2>モバイルレイアウト</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card">
+            <div class="card-icon">&#128241;</div>
+            <h3>レスポンシブデザイン</h3>
+            <p>画面幅に応じてグリッドカラム数を変更。Claude Codeに「モバイル対応にして」と指示</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128256;</div>
+            <h3>ハンバーガーメニュー</h3>
+            <p>モバイルではサイドバーをメニューボタンで開閉するUIに変換</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128071;</div>
+            <h3>ボトムナビゲーション</h3>
+            <p>モバイルアプリ風のタブバーを下部に配置</p>
+          </div>
+        </div>
+        <div class="highlight-box animate-in delay-2">
+          <h3>Claude Code Tips</h3>
+          <p>「今のページをモバイルレスポンシブ対応にして。ブレークポイントは768pxで」<br>のような具体的な指示がコツです</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 7: Session 1.5 - 自由制作 ========== -->
+    <div class="slide" data-session="1.5">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">1.5</div>
+        <h2 class="section-title animate-in delay-2">自由制作タイム</h2>
+        <p class="section-desc animate-in delay-3">自分の好きなものをClaude Codeに指示して作ってみよう！</p>
+        <div class="highlight-box animate-in delay-4" style="margin-top:40px;">
+          <h3>何を作ってもOK</h3>
+          <p>ポートフォリオサイト、ミニゲーム、ツールアプリ...<br>
+            Claude Codeにアイデアを伝えて、一緒に作り上げましょう。<br>
+            <strong style="color:var(--accent-light);">「こういうの作りたい」の一言からスタート！</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 8: Session 2 - タイトル ========== -->
+    <div class="slide" data-session="2">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">02</div>
+        <h2 class="section-title animate-in delay-2">Slack クローン作成</h2>
+        <p class="section-desc animate-in delay-3">リアルタイムチャットアプリをSupabaseと連携して構築します</p>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 9: Session 2 - フロントエンド ========== -->
+    <div class="slide" data-session="2">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 2</span>
+          <h2>Slack フロントエンドを構築</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card">
+            <div class="card-icon">&#128488;&#65039;</div>
+            <h3>チャンネルリスト</h3>
+            <p>左サイドバーにチャンネル一覧を表示。#general、#random など</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128172;</div>
+            <h3>メッセージエリア</h3>
+            <p>チャットメッセージの表示、アバター、タイムスタンプ</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#9997;&#65039;</div>
+            <h3>入力フォーム</h3>
+            <p>メッセージ入力欄、送信ボタン、添付ファイルUIの構築</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 10: Session 2 - Supabase連携 ========== -->
+    <div class="slide" data-session="2">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 2</span>
+          <h2>Supabaseでリアルタイムチャット</h2>
+        </div>
+        <div class="steps">
+          <div class="step animate-in delay-1">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <h3>テーブル設計</h3>
+              <p>messages, channels, users テーブルをSupabaseで作成</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-2">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <h3>Realtime機能の接続</h3>
+              <p>Supabase Realtimeを使い、メッセージの即座反映を実現</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-3">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <h3>認証の追加</h3>
+              <p>Supabase Authでユーザーログイン/サインアップを実装</p>
+            </div>
+          </div>
+        </div>
+        <div class="code-block animate-in delay-4">
+          <span class="comment">// Supabase Realtime でメッセージを購読</span><br>
+          <span class="keyword">const</span> channel = supabase<br>
+          &nbsp;&nbsp;.<span class="function">channel</span>(<span class="string">'messages'</span>)<br>
+          &nbsp;&nbsp;.<span class="function">on</span>(<span class="string">'postgres_changes'</span>, <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{ event: <span class="string">'INSERT'</span>, schema: <span class="string">'public'</span> },<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;(payload) => <span class="function">addMessage</span>(payload.new)<br>
+          &nbsp;&nbsp;)<br>
+          &nbsp;&nbsp;.<span class="function">subscribe</span>()
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 11: Session 3 - タイトル ========== -->
+    <div class="slide" data-session="3">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">03</div>
+        <h2 class="section-title animate-in delay-2">AI プロジェクト</h2>
+        <p class="section-desc animate-in delay-3">以下のAIプロジェクトから1つ選んで取り組みます</p>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 12: Session 3 - 選択肢 ========== -->
+    <div class="slide" data-session="3">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 3</span>
+          <h2>プロジェクトを1つ選択</h2>
+        </div>
+        <div class="choices animate-in delay-1">
+          <div class="choice">
+            <div class="choice-icon">&#128202;</div>
+            <h3>経営ダッシュボードAI</h3>
+            <p>経営データを可視化し、AIが分析・提案</p>
+          </div>
+          <div class="choice">
+            <div class="choice-icon">&#128101;</div>
+            <h3>人材配置最適化AI</h3>
+            <p>スキルと案件のマッチングをAIで最適化</p>
+          </div>
+          <div class="choice">
+            <div class="choice-icon">&#128178;</div>
+            <h3>コスト削減ポイント抽出AI</h3>
+            <p>支出データからコスト削減ポイントを自動発見</p>
+          </div>
+          <div class="choice">
+            <div class="choice-icon">&#128218;</div>
+            <h3>社内ナレッジ検索AI</h3>
+            <p>社内ドキュメントをAIで意味検索</p>
+          </div>
+          <div class="choice">
+            <div class="choice-icon">&#128221;</div>
+            <h3>契約書・NDA生成AI</h3>
+            <p>テンプレから契約書を自動生成・チェック</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 13: Session 4 - タイトル ========== -->
+    <div class="slide" data-session="4">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">04</div>
+        <h2 class="section-title animate-in delay-2">Claude Code Tips</h2>
+        <p class="section-desc animate-in delay-3">より効果的にClaude Codeを使いこなすためのテクニック集</p>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 14: Session 4 - CLAUDE.md ========== -->
+    <div class="slide" data-session="4">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 4</span>
+          <h2>CLAUDE.md ファイル</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card">
+            <div class="card-icon">&#128220;</div>
+            <h3>CLAUDE.md とは</h3>
+            <p>プロジェクトのルールや指示を記述するファイル。Claude Codeが毎回読み込み、プロジェクト固有の振る舞いを定義できる</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128736;&#65039;</div>
+            <h3>使い方</h3>
+            <p>プロジェクトルートにCLAUDE.mdを配置。コーディング規約、使用ライブラリ、注意事項を記述</p>
+          </div>
+        </div>
+        <div class="code-block animate-in delay-2">
+          <span class="comment"># CLAUDE.md の例</span><br><br>
+          <span class="comment">## プロジェクトルール</span><br>
+          - TypeScriptを使用すること<br>
+          - Tailwind CSS でスタイリング<br>
+          - コンポーネントは src/components/ に配置<br>
+          - 日本語でコメントを書くこと
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 15: Session 4 - Token / Skills / 設定 ========== -->
+    <div class="slide" data-session="4">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 4</span>
+          <h2>TOKEN・Skills・グローバル設定</h2>
+        </div>
+        <div class="tips-grid animate-in delay-1">
+          <div class="tip">
+            <div class="tip-label">TOKEN</div>
+            <h3>トークンの概念</h3>
+            <p>AIが処理するテキストの単位。入力+出力トークンで課金。長い会話ほどトークン消費が多い。コンテキストウィンドウの制限を意識しよう</p>
+          </div>
+          <div class="tip">
+            <div class="tip-label">SKILLS</div>
+            <h3>スキル機能</h3>
+            <p>Claude Codeの拡張機能。/commit、/review-pr などの組み込みスキルや、カスタムスキルの作成方法</p>
+          </div>
+          <div class="tip">
+            <div class="tip-label">CONFIG</div>
+            <h3>グローバル設定</h3>
+            <p>~/.claude/settings.json でClaude Code全体の動作をカスタマイズ。フック、MCP、権限管理</p>
+          </div>
+          <div class="tip">
+            <div class="tip-label">MOBILE</div>
+            <h3>スマホでコーディング</h3>
+            <p>Claude Code Webアプリ (claude.ai/code) を使えばスマホからもコーディング可能。外出先での簡単な修正に便利</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 16: Session 5 - タイトル ========== -->
+    <div class="slide" data-session="5">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">05</div>
+        <h2 class="section-title animate-in delay-2">Codex</h2>
+        <p class="section-desc animate-in delay-3">OpenAI Codexとの比較から、それぞれの強みを理解する</p>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 17: Session 5 - Codex比較 ========== -->
+    <div class="slide" data-session="5">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 5</span>
+          <h2>Claude Code vs Codex</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card" style="border-color: var(--accent);">
+            <div class="card-icon">&#9889;</div>
+            <h3>Claude Code</h3>
+            <p>
+              &#8226; ターミナル/IDE/Webで動作<br>
+              &#8226; ファイル編集・コマンド実行が可能<br>
+              &#8226; MCP連携で外部ツール接続<br>
+              &#8226; CLAUDE.mdでプロジェクト設定<br>
+              &#8226; 対話的に段階的に構築
+            </p>
+          </div>
+          <div class="card" style="border-color: var(--green);">
+            <div class="card-icon">&#128187;</div>
+            <h3>OpenAI Codex</h3>
+            <p>
+              &#8226; サンドボックス環境で実行<br>
+              &#8226; GitHub PR自動作成<br>
+              &#8226; 非同期タスク処理<br>
+              &#8226; 複数タスク並列実行<br>
+              &#8226; バッチ処理向き
+            </p>
+          </div>
+        </div>
+        <div class="highlight-box animate-in delay-2">
+          <h3>使い分けのポイント</h3>
+          <p>Claude Code = 対話しながらリアルタイムに開発<br>
+            Codex = まとめて自動処理・バッチタスク</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 18: Session 6 - タイトル ========== -->
+    <div class="slide" data-session="6">
+      <div class="slide-content slide-section">
+        <div class="section-number animate-in delay-1">06</div>
+        <h2 class="section-title animate-in delay-2">Gemini リアルタイムAPI</h2>
+        <p class="section-desc animate-in delay-3">Geminiの最新リアルタイムAPIを使って、ロープレ研修ツールを作ろう</p>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 19: Session 6 - API連携 ========== -->
+    <div class="slide" data-session="6">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 6</span>
+          <h2>ロープレ研修ツールの構築</h2>
+        </div>
+        <div class="steps">
+          <div class="step animate-in delay-1">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <h3>Gemini API キーの取得</h3>
+              <p>Google AI StudioからAPIキーを発行し、環境変数に設定</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-2">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <h3>リアルタイム通信の実装</h3>
+              <p>WebSocketを使ったGeminiリアルタイムAPIとの接続。音声/テキストの双方向通信</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-3">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <h3>ロープレシナリオの設計</h3>
+              <p>営業ロープレ、クレーム対応など、研修シナリオをプロンプトで定義</p>
+            </div>
+          </div>
+          <div class="step animate-in delay-4">
+            <span class="step-num">04</span>
+            <div class="step-content">
+              <h3>フィードバック機能</h3>
+              <p>AIがロープレ内容を評価し、改善ポイントを提示する機能</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 20: Ending ========== -->
+    <div class="slide" data-session="end">
+      <div class="slide-content slide-title-main">
+        <div class="badge animate-in delay-1">COMPLETE</div>
+        <h1 class="animate-in delay-2" style="font-size:48px;">お疲れ様でした！</h1>
+        <p class="subtitle animate-in delay-3">Claude Codeと一緒に、新しい開発体験を楽しみましょう</p>
+        <div class="tech-stack animate-in delay-4" style="margin-top:40px;">
+          <span class="tech-tag" style="border-color:var(--accent);color:var(--accent-light);">Build with AI</span>
+          <span class="tech-tag" style="border-color:var(--pink);color:var(--pink);">Ship Faster</span>
+          <span class="tech-tag" style="border-color:var(--green);color:var(--green);">Learn by Doing</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="control-btn" id="prevBtn" onclick="prevSlide()">&#8592;</button>
+    <button class="control-btn" id="nextBtn" onclick="nextSlide()">&#8594;</button>
+  </div>
+  <div class="controls-hint">
+    <kbd>&larr;</kbd> <kbd>&rarr;</kbd> キーで操作 &nbsp;|&nbsp; <kbd>T</kbd> 目次 &nbsp;|&nbsp; <kbd>F</kbd> フルスクリーン
+  </div>
+
+  <script>
+    // ===== Slide Engine =====
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const sessionMap = {
+      '0': 'セットアップ',
+      '1': 'YouTube クローン',
+      '1.5': '自由制作',
+      '2': 'Slack クローン',
+      '3': 'AI プロジェクト',
+      '4': 'Claude Code Tips',
+      '5': 'Codex',
+      '6': 'Gemini API',
+      'end': '完了'
+    };
+
+    // Build session dots
+    const sessionDots = document.getElementById('sessionDots');
+    const sessions = [...new Set([...slides].map(s => s.dataset.session))];
+    sessions.forEach((session, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'session-dot';
+      dot.dataset.session = session;
+      dot.innerHTML = `<span class="session-dot-label">${sessionMap[session] || session}</span>`;
+      dot.onclick = () => {
+        const idx = [...slides].findIndex(s => s.dataset.session === session);
+        if (idx >= 0) goToSlide(idx);
+      };
+      sessionDots.appendChild(dot);
+    });
+
+    // Build TOC
+    const tocList = document.getElementById('tocList');
+    slides.forEach((slide, i) => {
+      const session = slide.dataset.session;
+      const h2 = slide.querySelector('h2, .section-title');
+      const h1 = slide.querySelector('h1');
+      const label = h2 ? h2.textContent : (h1 ? h1.textContent : `スライド ${i + 1}`);
+      const item = document.createElement('div');
+      item.className = 'toc-item';
+      item.innerHTML = `
+        <span class="toc-num">${String(i + 1).padStart(2, '0')}</span>
+        <span class="toc-label">${label}</span>
+        <span class="toc-session">${sessionMap[session] || ''}</span>
+      `;
+      item.onclick = () => { goToSlide(i); toggleTOC(); };
+      tocList.appendChild(item);
+    });
+
+    function updateUI() {
+      // Update progress bar
+      const progress = ((currentSlide) / (totalSlides - 1)) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+
+      // Update counter
+      document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+      // Update session label
+      const session = slides[currentSlide].dataset.session;
+      document.getElementById('sessionLabel').textContent =
+        session === 'end' ? '完了' : `Session ${session}`;
+
+      // Update dots
+      document.querySelectorAll('.session-dot').forEach(dot => {
+        dot.classList.remove('active');
+        const dotSession = dot.dataset.session;
+        const dotIndex = sessions.indexOf(dotSession);
+        const currentSessionIndex = sessions.indexOf(session);
+        if (dotSession === session) dot.classList.add('active');
+        if (dotIndex < currentSessionIndex) dot.classList.add('completed');
+        else dot.classList.remove('completed');
+      });
+
+      // Update buttons
+      document.getElementById('prevBtn').disabled = currentSlide === 0;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    }
+
+    function goToSlide(index) {
+      if (index < 0 || index >= totalSlides || index === currentSlide) return;
+
+      const direction = index > currentSlide ? 'left' : 'right';
+      const current = slides[currentSlide];
+      const next = slides[index];
+
+      // Remove all states
+      slides.forEach(s => {
+        s.classList.remove('active', 'exit-left');
+      });
+
+      // Animate out
+      if (direction === 'left') {
+        current.classList.add('exit-left');
+      }
+
+      // Animate in
+      next.style.transform = direction === 'left' ? 'translateX(100px)' : 'translateX(-100px)';
+      next.offsetHeight; // Force reflow
+      next.classList.add('active');
+      next.style.transform = '';
+
+      currentSlide = index;
+      updateUI();
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+      if (e.key === 't' || e.key === 'T') { toggleTOC(); }
+      if (e.key === 'f' || e.key === 'F') { toggleFullscreen(); }
+      if (e.key === 'Escape') { closeTOC(); }
+    });
+
+    // TOC
+    function toggleTOC() {
+      const overlay = document.getElementById('tocOverlay');
+      overlay.classList.toggle('visible');
+    }
+    function closeTOC() {
+      document.getElementById('tocOverlay').classList.remove('visible');
+    }
+
+    // Fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Touch support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+      }
+    });
+
+    // Initialize
+    updateUI();
+  </script>
+</body>
+</html>

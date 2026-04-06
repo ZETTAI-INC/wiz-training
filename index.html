@@ -652,6 +652,76 @@
     .slide.active .delay-5 { animation-delay: 0.5s; opacity: 0; }
     .slide.active .delay-6 { animation-delay: 0.6s; opacity: 0; }
 
+    /* ===== Prompt Block ===== */
+    .prompt-block {
+      background: #f6f6f4;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 32px 36px 28px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text);
+      margin-top: 8px;
+      position: relative;
+      white-space: pre-wrap;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .prompt-block .prompt-label {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .prompt-block .prompt-copy {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #fff;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .prompt-block .prompt-copy:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .prompt-block .prompt-copy.copied {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .prompt-block h4 {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--accent);
+      margin: 14px 0 4px;
+    }
+
+    .prompt-block h4:first-child {
+      margin-top: 0;
+    }
+
     /* ===== Timeline ===== */
     .timeline {
       display: flex;
@@ -983,72 +1053,71 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 9: Session 2 - フロントエンド ========== -->
+    <!-- ========== SLIDE 9: Session 2 - 全体を再現 ========== -->
     <div class="slide" data-session="2">
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 2</span>
-          <h2>Slack フロントエンドを構築</h2>
+          <h2>まずは Slack の全体を再現</h2>
         </div>
         <div class="cards animate-in delay-1">
           <div class="card">
             <div class="card-icon">&#128488;&#65039;</div>
-            <h3>チャンネルリスト</h3>
-            <p>左サイドバーにチャンネル一覧を表示。#general、#random など</p>
+            <h3>ワークスペース</h3>
+            <p>左端のワークスペース切り替え・アイコン一覧、チャンネルリスト、DM一覧まで含めた全体レイアウト</p>
           </div>
           <div class="card">
-            <div class="card-icon">&#128172;</div>
-            <h3>メッセージエリア</h3>
-            <p>チャットメッセージの表示、アバター、タイムスタンプ</p>
+            <div class="card-icon">&#128100;</div>
+            <h3>ヘッダー & サイドバー</h3>
+            <p>上部のチャンネル名・検索、左のナビゲーション、右のメンバーリストまで一通り揃える</p>
           </div>
           <div class="card">
-            <div class="card-icon">&#9997;&#65039;</div>
-            <h3>入力フォーム</h3>
-            <p>メッセージ入力欄、送信ボタン、添付ファイルUIの構築</p>
+            <div class="card-icon">&#128230;</div>
+            <h3>チャット & 入力エリア</h3>
+            <p>メッセージ一覧、スレッド、リアクション、下部の入力フォームを丸ごと再現する</p>
           </div>
+        </div>
+        <div class="highlight-box animate-in delay-2">
+          <h3>ポイント</h3>
+          <p>いきなり細部に入らず、<strong>まずはSlack画面全体のガワを丸ごと作る</strong>。<br>全体が見えてから、次のステップでチャットページを具体的に作り込みます。</p>
         </div>
       </div>
     </div>
 
-    <!-- ========== SLIDE 10: Session 2 - Supabase連携 ========== -->
+    <!-- ========== SLIDE 10: Session 2 - チャットページ プロンプト ========== -->
     <div class="slide" data-session="2">
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 2</span>
-          <h2>Supabaseでリアルタイムチャット</h2>
+          <h2>チャットページを作るプロンプト</h2>
         </div>
-        <div class="steps">
-          <div class="step animate-in delay-1">
-            <span class="step-num">01</span>
-            <div class="step-content">
-              <h3>テーブル設計</h3>
-              <p>messages, channels, users テーブルをSupabaseで作成</p>
-            </div>
-          </div>
-          <div class="step animate-in delay-2">
-            <span class="step-num">02</span>
-            <div class="step-content">
-              <h3>Realtime機能の接続</h3>
-              <p>Supabase Realtimeを使い、メッセージの即座反映を実現</p>
-            </div>
-          </div>
-          <div class="step animate-in delay-3">
-            <span class="step-num">03</span>
-            <div class="step-content">
-              <h3>認証の追加</h3>
-              <p>Supabase Authでユーザーログイン/サインアップを実装</p>
-            </div>
-          </div>
-        </div>
-        <div class="code-block animate-in delay-4">
-          <span class="comment">// Supabase Realtime でメッセージを購読</span><br>
-          <span class="keyword">const</span> channel = supabase<br>
-          &nbsp;&nbsp;.<span class="function">channel</span>(<span class="string">'messages'</span>)<br>
-          &nbsp;&nbsp;.<span class="function">on</span>(<span class="string">'postgres_changes'</span>, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;{ event: <span class="string">'INSERT'</span>, schema: <span class="string">'public'</span> },<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;(payload) => <span class="function">addMessage</span>(payload.new)<br>
-          &nbsp;&nbsp;)<br>
-          &nbsp;&nbsp;.<span class="function">subscribe</span>()
+        <div class="prompt-block animate-in delay-1">
+          <span class="prompt-label">PROMPT</span>
+          <button class="prompt-copy" onclick="copyPrompt(this)">コピー</button>
+<h4># 目的</h4>Slackのチャットページを作ってください。既に作った全体レイアウトの中の、真ん中のチャットエリアを作り込みます。
+
+<h4># レイアウト</h4>- 上部: チャンネル名（例 #general）、メンバー数、検索アイコン
+- 中央: メッセージ一覧（上から下に時系列で表示、下が最新）
+- 下部: メッセージ入力フォーム（固定）
+
+<h4># メッセージの表示</h4>- 左にユーザーアバター（丸、40px）
+- 右にユーザー名（太字）+ タイムスタンプ（小さく薄く）
+- その下にメッセージ本文
+- 同じユーザーが連投した場合はアバター・名前を省略してまとめる
+- ホバーでリアクション追加・返信ボタンが表示される
+
+<h4># 入力フォーム</h4>- 複数行入力できるテキストエリア
+- 左に「＋」ファイル添付ボタン、右に「送信」ボタン
+- Enterで送信、Shift+Enterで改行
+- 下に「@メンション」「絵文字」のUIを置く
+
+<h4># ダミーデータ</h4>- 10件くらいのメッセージをハードコードで入れておく
+- ユーザーは3人分用意する
+- タイムスタンプは「14:32」の形式
+
+<h4># デザイン</h4>- Slack本家の雰囲気（白背景、グレーのボーダー、紫のアクセント）
+- Tailwind CSS を使う
+- レスポンシブ対応（モバイルではサイドバーを畳む）
         </div>
       </div>
     </div>
@@ -1293,6 +1362,19 @@
   </div>
 
   <script>
+    // ===== Copy Prompt =====
+    function copyPrompt(btn) {
+      const block = btn.closest('.prompt-block');
+      const clone = block.cloneNode(true);
+      clone.querySelectorAll('.prompt-label, .prompt-copy').forEach(el => el.remove());
+      const text = clone.innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'コピーしました';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 1500);
+      });
+    }
+
     // ===== Slide Engine =====
     const slides = document.querySelectorAll('.slide');
     const totalSlides = slides.length;

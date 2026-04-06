@@ -1084,7 +1084,54 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 10: Session 2 - チャットページ プロンプト ========== -->
+    <!-- ========== SLIDE 10: Session 2 - CLAUDE.md の必要性 ========== -->
+    <div class="slide" data-session="2">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 2</span>
+          <h2>その前に CLAUDE.md を置こう</h2>
+        </div>
+        <div class="cards animate-in delay-1">
+          <div class="card">
+            <div class="card-icon">&#128221;</div>
+            <h3>CLAUDE.md とは</h3>
+            <p>プロジェクトのルール・規約をまとめた取扱説明書。Claude Codeが作業のたびに必ず読み込む</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128680;</div>
+            <h3>なぜ必要?</h3>
+            <p>Slackくらいの規模になると、毎回「Tailwind使って」「日本語で」と指示するのは限界。AIは前の会話を忘れる</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#9989;</div>
+            <h3>効果</h3>
+            <p>デザインやコード規約がブレなくなる。新しいページを作っても統一感が保たれる</p>
+          </div>
+        </div>
+        <div class="prompt-block animate-in delay-2">
+          <span class="prompt-label">CLAUDE.md</span>
+          <button class="prompt-copy" onclick="copyPrompt(this)">コピー</button>
+<h4># このプロジェクトについて</h4>Slack風のチャットアプリを作っています。Next.js + Tailwind CSS + Supabaseで構築します。
+
+<h4># コーディング規約</h4>- TypeScript を使う
+- コンポーネントは src/components/ に配置
+- ページは src/app/ 配下（App Router）
+- スタイリングは Tailwind CSS のみ。CSSファイルは作らない
+- コメントは日本語で書く
+
+<h4># デザインルール</h4>- ベースカラーは白、アクセントは Slack 風の紫 (#4A154B)
+- フォントは system-ui を使う
+- 角丸は rounded-lg で統一
+- ボタンは必ずホバー時に色が変わるようにする
+
+<h4># やってほしくないこと</h4>- 勝手にライブラリを追加しない（必要なら先に確認する）
+- インラインstyleを使わない
+- any 型を使わない
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 11: Session 2 - チャットページ プロンプト ========== -->
     <div class="slide" data-session="2">
       <div class="slide-content">
         <div class="slide-heading">

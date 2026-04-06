@@ -157,11 +157,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 80px;
+      padding: 40px 80px 80px;
       opacity: 0;
       transform: translateX(100px);
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
+      overflow-y: auto;
     }
 
     .slide.active {
@@ -178,6 +179,7 @@
     .slide-content {
       max-width: 1000px;
       width: 100%;
+      margin: auto;
     }
 
     /* ===== Slide Types ===== */
@@ -272,7 +274,7 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
     }
 
     .slide-heading .session-tag {
@@ -303,7 +305,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 28px;
+      padding: 24px;
       transition: all 0.3s;
       cursor: default;
     }
@@ -335,7 +337,7 @@
     .steps {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     .step {
@@ -345,7 +347,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px 24px;
       transition: all 0.3s;
     }
 
@@ -640,6 +642,71 @@
     .slide.active .delay-5 { animation-delay: 0.5s; opacity: 0; }
     .slide.active .delay-6 { animation-delay: 0.6s; opacity: 0; }
 
+    /* ===== Timeline ===== */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .tl-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid #fff;
+      z-index: 1;
+    }
+
+    .tl-item.tl-active::before {
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(212, 43, 43, 0.15);
+    }
+
+    .tl-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 28px;
+    }
+
+    .tl-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .tl-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-left: auto;
+      text-align: right;
+      min-width: 120px;
+    }
+
     /* ===== Background Decoration ===== */
     .bg-glow {
       display: none;
@@ -696,7 +763,58 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 1: Session 0 - 環境構築 ========== -->
+    <!-- ========== SLIDE 1: Timeline ========== -->
+    <div class="slide" data-session="0">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <h2>研修の流れ</h2>
+        </div>
+        <div class="timeline">
+          <div class="tl-item tl-active animate-in delay-1">
+            <span class="tl-num">00</span>
+            <span class="tl-title">環境構築 / セットアップ</span>
+            <span class="tl-desc">事前準備</span>
+          </div>
+          <div class="tl-item animate-in delay-1">
+            <span class="tl-num">01</span>
+            <span class="tl-title">YouTube クローン作成</span>
+            <span class="tl-desc">一覧・詳細・サムネ変更</span>
+          </div>
+          <div class="tl-item animate-in delay-2">
+            <span class="tl-num">--</span>
+            <span class="tl-title">自由制作タイム</span>
+            <span class="tl-desc">好きなものを作る</span>
+          </div>
+          <div class="tl-item animate-in delay-2">
+            <span class="tl-num">02</span>
+            <span class="tl-title">Slack クローン作成</span>
+            <span class="tl-desc">Supabase連携</span>
+          </div>
+          <div class="tl-item animate-in delay-3">
+            <span class="tl-num">03</span>
+            <span class="tl-title">AI プロジェクト</span>
+            <span class="tl-desc">5つから1つ選択</span>
+          </div>
+          <div class="tl-item animate-in delay-3">
+            <span class="tl-num">04</span>
+            <span class="tl-title">Claude Code Tips</span>
+            <span class="tl-desc">CLAUDE.md / TOKEN / Skills</span>
+          </div>
+          <div class="tl-item animate-in delay-4">
+            <span class="tl-num">05</span>
+            <span class="tl-title">Codex</span>
+            <span class="tl-desc">Claude Code との比較</span>
+          </div>
+          <div class="tl-item animate-in delay-4">
+            <span class="tl-num">06</span>
+            <span class="tl-title">Gemini リアルタイムAPI</span>
+            <span class="tl-desc">ロープレ研修ツール</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 2: Session 0 - 環境構築 ========== -->
     <div class="slide" data-session="0">
       <div class="slide-content">
         <div class="slide-heading">
@@ -743,12 +861,12 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 3: Session 1 - フロントエンド構築 ========== -->
+    <!-- ========== SLIDE 3: Session 1 - 一覧ページ ========== -->
     <div class="slide" data-session="1">
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 1</span>
-          <h2>フロントエンドを構築</h2>
+          <h2>一覧ページを作る</h2>
         </div>
         <div class="cards animate-in delay-1">
           <div class="card">
@@ -767,10 +885,6 @@
             <p>ジャンル別タブやキーワード検索機能をAIに指示して実装</p>
           </div>
         </div>
-        <div class="highlight-box animate-in delay-2">
-          <h3>ポイント</h3>
-          <p>Claude Codeに「YouTubeのようなトップページを作って」と指示するだけで、基本構造が生成されます。<br>そこから細かい調整を会話しながら進めていきましょう。</p>
-        </div>
       </div>
     </div>
 
@@ -779,7 +893,7 @@
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 1</span>
-          <h2>詳細ページを構築</h2>
+          <h2>詳細ページを作る</h2>
         </div>
         <div class="cards animate-in delay-1">
           <div class="card">
@@ -801,66 +915,29 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 5: Session 1 - サムネイル入れ替え ========== -->
+    <!-- ========== SLIDE 5: Session 1 - サムネイル変更 ========== -->
     <div class="slide" data-session="1">
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 1</span>
-          <h2>ジャンル別サムネイル入れ替え</h2>
-        </div>
-        <div class="steps">
-          <div class="step animate-in delay-1">
-            <span class="step-num">01</span>
-            <div class="step-content">
-              <h3>ジャンルカテゴリの定義</h3>
-              <p>音楽、ゲーム、ニュース、スポーツなどのジャンルを設定</p>
-            </div>
-          </div>
-          <div class="step animate-in delay-2">
-            <span class="step-num">02</span>
-            <div class="step-content">
-              <h3>サムネイル画像の準備</h3>
-              <p>各ジャンルに対応するサムネイル画像をセットアップ</p>
-            </div>
-          </div>
-          <div class="step animate-in delay-3">
-            <span class="step-num">03</span>
-            <div class="step-content">
-              <h3>動的切り替えの実装</h3>
-              <p>ジャンルタブ選択時にサムネイルが切り替わるロジックをClaude Codeで生成</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== SLIDE 6: Session 1 - モバイルレイアウト ========== -->
-    <div class="slide" data-session="1">
-      <div class="slide-content">
-        <div class="slide-heading">
-          <span class="session-tag">SESSION 1</span>
-          <h2>モバイルレイアウト</h2>
+          <h2>サムネイルを変更する</h2>
         </div>
         <div class="cards animate-in delay-1">
           <div class="card">
-            <div class="card-icon">&#128241;</div>
-            <h3>レスポンシブデザイン</h3>
-            <p>画面幅に応じてグリッドカラム数を変更。Claude Codeに「モバイル対応にして」と指示</p>
+            <div class="card-icon">&#127912;</div>
+            <h3>画像の差し替え</h3>
+            <p>サムネイル画像を自分で用意した画像やURLに入れ替える</p>
           </div>
           <div class="card">
-            <div class="card-icon">&#128256;</div>
-            <h3>ハンバーガーメニュー</h3>
-            <p>モバイルではサイドバーをメニューボタンで開閉するUIに変換</p>
+            <div class="card-icon">&#128260;</div>
+            <h3>ジャンル別の切り替え</h3>
+            <p>音楽・ゲーム・ニュースなどジャンルに合わせてサムネイルを動的に変更</p>
           </div>
           <div class="card">
-            <div class="card-icon">&#128071;</div>
-            <h3>ボトムナビゲーション</h3>
-            <p>モバイルアプリ風のタブバーを下部に配置</p>
+            <div class="card-icon">&#128736;&#65039;</div>
+            <h3>カスタマイズ</h3>
+            <p>Claude Codeに「サムネイルをこの画像に変えて」と指示するだけ</p>
           </div>
-        </div>
-        <div class="highlight-box animate-in delay-2">
-          <h3>Claude Code Tips</h3>
-          <p>「今のページをモバイルレスポンシブ対応にして。ブレークポイントは768pxで」<br>のような具体的な指示がコツです</p>
         </div>
       </div>
     </div>

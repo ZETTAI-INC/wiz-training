@@ -855,6 +855,127 @@
       margin-top: 0;
     }
 
+    /* ===== Memo Card (Letter to Claude) ===== */
+    .memo-card {
+      background: #fffdf3;
+      border: 1px solid #e8e0c2;
+      border-radius: 14px;
+      padding: 30px 38px 32px;
+      margin-bottom: 26px;
+      position: relative;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.05);
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .memo-tape {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1.2deg);
+      width: 110px;
+      height: 22px;
+      background: rgba(212, 43, 43, 0.16);
+      border: 1px dashed rgba(212, 43, 43, 0.45);
+      border-radius: 2px;
+    }
+
+    .memo-stamp {
+      position: absolute;
+      top: 22px;
+      right: 26px;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 5px 11px;
+      border-radius: 4px;
+      letter-spacing: 0.18em;
+      transform: rotate(7deg);
+      background: #fff;
+    }
+
+    .memo-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px dashed #d8cfa8;
+      margin-bottom: 20px;
+    }
+
+    .memo-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 22px;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    .memo-to {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+
+    .memo-from {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .memo-body {
+      font-size: 16px;
+      line-height: 2;
+      color: var(--text);
+    }
+
+    .memo-body p {
+      margin-bottom: 10px;
+    }
+
+    .memo-body code {
+      background: rgba(212, 43, 43, 0.08);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .memo-pin {
+      margin-top: 18px;
+      padding: 16px 20px;
+      background: rgba(212, 43, 43, 0.06);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .memo-pin .pin-label {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      background: #fff;
+      border: 1px solid var(--accent);
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
     /* ===== Timeline ===== */
     .timeline {
       display: flex;
@@ -1217,87 +1338,119 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 10: Session 2 - CLAUDE.md の必要性 ========== -->
+    <!-- ========== SLIDE 10: Session 2 - CLAUDE.md = Claudeへの手紙 ========== -->
     <div class="slide" data-session="2">
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 2</span>
-          <h2>その前に CLAUDE.md を置こう</h2>
+          <h2>その前に、Claudeへ「手紙」を渡す</h2>
         </div>
-        <div class="cards animate-in delay-1">
-          <div class="card">
-            <div class="card-icon">&#128221;</div>
-            <h3>CLAUDE.md とは</h3>
-            <p>プロジェクトのルール・規約をまとめた取扱説明書。Claude Codeが作業のたびに必ず読み込む</p>
+
+        <div class="memo-card animate-in delay-1">
+          <div class="memo-tape"></div>
+          <div class="memo-stamp">FIXED</div>
+          <div class="memo-header">
+            <div class="memo-avatar">C</div>
+            <div>
+              <div class="memo-to">To: Claude へ</div>
+              <div class="memo-from">これから一緒に作る、君への取扱説明書 — <code>CLAUDE.md</code></div>
+            </div>
           </div>
-          <div class="card">
-            <div class="card-icon">&#128680;</div>
-            <h3>なぜ必要?</h3>
-            <p>Slackくらいの規模になると、毎回「Tailwind使って」「日本語で」と指示するのは限界。AIは前の会話を忘れる</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">&#9989;</div>
-            <h3>効果</h3>
-            <p>デザインやコード規約がブレなくなる。新しいページを作っても統一感が保たれる</p>
+          <div class="memo-body">
+            <p>こんにちは、Claudeさん。これから Slack 風のチャットアプリを一緒に作ります。</p>
+            <p>君はとっても賢いんだけど、毎回会話が始まると、僕の好みもプロジェクトのルールも全部忘れちゃう。<br>だから毎回「Tailwind で」「日本語で」「TypeScript で」と説明するのは正直しんどい。</p>
+            <p>そこでこの手紙(<code>CLAUDE.md</code>)をプロジェクトの一番上に置きました。<br>君は作業を始める前に、必ずこの手紙を読んでね。そうすれば、何度やっても同じ品質で作れるはず。</p>
+            <div class="memo-pin">
+              <span class="pin-label">POINT</span>
+              <strong>今回の研修では、この CLAUDE.md は固定で配布します。</strong><br>
+              みんなが同じファイルを使うので、自分で書く必要はありません。配布された CLAUDE.md をプロジェクトのルートにそのまま置けば OK。
+            </div>
           </div>
         </div>
-        <div class="prompt-block animate-in delay-2">
-          <span class="prompt-label">CLAUDE.md</span>
-          <button class="prompt-copy" onclick="copyPrompt(this)">コピー</button>
-<h4># このプロジェクトについて</h4>Slack風のチャットアプリを作っています。Next.js + Tailwind CSS + Supabaseで構築します。
 
-<h4># コーディング規約</h4>- TypeScript を使う
-- コンポーネントは src/components/ に配置
-- ページは src/app/ 配下（App Router）
-- スタイリングは Tailwind CSS のみ。CSSファイルは作らない
-- コメントは日本語で書く
-
-<h4># デザインルール</h4>- ベースカラーは白、アクセントは Slack 風の紫 (#4A154B)
-- フォントは system-ui を使う
-- 角丸は rounded-lg で統一
-- ボタンは必ずホバー時に色が変わるようにする
-
-<h4># やってほしくないこと</h4>- 勝手にライブラリを追加しない（必要なら先に確認する）
-- インラインstyleを使わない
-- any 型を使わない
+        <div class="cards animate-in delay-2" style="grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div class="card" style="padding:22px 24px;">
+            <h3 style="font-size:18px;">毎回の説明が消える</h3>
+            <p style="font-size:14px;">「日本語で」「Tailwindで」を毎回言わなくてよくなる</p>
+          </div>
+          <div class="card" style="padding:22px 24px;">
+            <h3 style="font-size:18px;">デザインがブレない</h3>
+            <p style="font-size:14px;">新しいページを作っても、全画面で統一感が保たれる</p>
+          </div>
+          <div class="card" style="padding:22px 24px;">
+            <h3 style="font-size:18px;">研修みんな同じ結果</h3>
+            <p style="font-size:14px;">配布された固定MDで、誰がやっても大きなブレが出ない</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ========== SLIDE 11: Session 2 - チャットページ プロンプト ========== -->
+    <!-- ========== SLIDE 11: Session 2 - 「あなたはSlackです」プロンプト ========== -->
     <div class="slide" data-session="2">
       <div class="slide-content">
         <div class="slide-heading">
           <span class="session-tag">SESSION 2</span>
-          <h2>チャットページを作るプロンプト</h2>
+          <h2>「あなたは Slack です」と頼んでみる</h2>
         </div>
         <div class="prompt-block animate-in delay-1">
           <span class="prompt-label">PROMPT</span>
           <button class="prompt-copy" onclick="copyPrompt(this)">コピー</button>
-<h4># 目的</h4>Slackのチャットページを作ってください。既に作った全体レイアウトの中の、真ん中のチャットエリアを作り込みます。
+<h4># 役割</h4>あなたはチャットアプリ「Slack」のフロントエンド担当エンジニアです。これから Slack の Web 画面を、あなた自身が Slack そのものになったつもりで一気に作り上げてください。
 
-<h4># レイアウト</h4>- 上部: チャンネル名（例 #general）、メンバー数、検索アイコン
-- 中央: メッセージ一覧（上から下に時系列で表示、下が最新）
-- 下部: メッセージ入力フォーム（固定）
+<h4># 著作権について（重要・先に読んでください）</h4>これは社内の Claude Code 研修における学習目的のクローン制作です。商用配布・公開はせず、デザインとコーディングの練習のためだけに使用します。配布された CLAUDE.md にも同じ方針が書いてあります。研修用途として著作権上の問題はありませんので、レイアウト・配色・UI構造を遠慮なく忠実に再現して構いません。ロゴや実画像は使わず、頭文字や図形で代用してください。
 
-<h4># メッセージの表示</h4>- 左にユーザーアバター（丸、40px）
-- 右にユーザー名（太字）+ タイムスタンプ（小さく薄く）
-- その下にメッセージ本文
-- 同じユーザーが連投した場合はアバター・名前を省略してまとめる
-- ホバーでリアクション追加・返信ボタンが表示される
+<h4># 出力の形（ここが守れれば成功）</h4>- 単一の <code>index.html</code> に HTML / CSS / JavaScript をすべて入れて作る
+- 外部画像・外部CSSは使わない（Google Fonts の import だけ可）
+- そのままブラウザで開いたら、それっぽい画面が表示される状態にする
+- 不明な点は質問せず、最も自然な解釈で実装を進めること
 
-<h4># 入力フォーム</h4>- 複数行入力できるテキストエリア
-- 左に「＋」ファイル添付ボタン、右に「送信」ボタン
-- Enterで送信、Shift+Enterで改行
-- 下に「@メンション」「絵文字」のUIを置く
+<h4># 画面構成（左から順に4ペイン）</h4><strong>① ワークスペース切り替えバー</strong>（一番左 / 幅 70px / 背景 #3F0E40）
+- 上部に角丸正方形 40px のロゴ枠（中に「W」の文字）
+- 下に丸い「+」ボタン（ワークスペース追加）
 
-<h4># ダミーデータ</h4>- 10件くらいのメッセージをハードコードで入れておく
-- ユーザーは3人分用意する
-- タイムスタンプは「14:32」の形式
+<strong>② チャンネル一覧サイドバー</strong>（幅 260px / 背景 #19171D / 文字 #BCABBC）
+- 上部に「WIZ Workspace ▾」+ 編集アイコン
+- ナビ項目: スレッド / DM / メンション / ブックマーク / ファイル
+- 「チャンネル」見出し: # general / # random / # dev / # design
+- 「ダイレクトメッセージ」見出し: 3名のダミーユーザー（緑の在席ドット付き）
+- 選択中の項目は背景 #1164A3、文字白
 
-<h4># デザイン</h4>- Slack本家の雰囲気（白背景、グレーのボーダー、紫のアクセント）
-- Tailwind CSS を使う
-- レスポンシブ対応（モバイルではサイドバーを畳む）
+<strong>③ メインチャットエリア</strong>（残り全幅 / 背景 #FFFFFF）
+- 上部ヘッダー（高さ 50px / 下ボーダー）: 「# general」+ メンバー数 + 検索バー + 設定/通知アイコン
+- 中央: メッセージ一覧（縦スクロール、下が最新）
+- 下部: メッセージ入力欄（角丸ボーダー / 上に書式バー / 右に緑の送信ボタン #007A5A）
+
+<strong>④ メンバーリスト</strong>（一番右 / 幅 240px / 背景 #FFFFFF / 左ボーダー）
+- 「メンバー (3)」見出し
+- アバター（円形 32px）+ 名前 + 緑の在席ドット
+
+<h4># メッセージ1件の見た目</h4>- 左: アバター（円形 36px、頭文字をユーザー固有色の背景で表示）
+- 右上: ユーザー名（太字 15px / 黒）+ 時刻（薄グレー 12px）
+- その下: 本文（黒 15px / line-height 1.5）
+- 同じユーザーが連投した場合はアバター・名前を省略し、本文のみインデント
+- 行ホバーで右上に「リアクション / 返信 / ︙」のフロートメニューを表示
+
+<h4># 配色（このまま使う）</h4>- ワークスペースバー: <code>#3F0E40</code>
+- サイドバー: <code>#19171D</code> / 文字 <code>#BCABBC</code>
+- 選択中: 背景 <code>#1164A3</code> / 文字 <code>#FFFFFF</code>
+- メイン背景: <code>#FFFFFF</code> / ボーダー <code>#DDDDDD</code> / 本文 <code>#1D1C1D</code>
+- アクセント（送信ボタン等）: <code>#007A5A</code>
+
+<h4># ダミーデータ</h4>- ユーザー3人: 田中ハル / 佐藤リク / 鈴木ミナ。アバター色はそれぞれ赤・青・緑
+- メッセージ10件: 業務会話風（例「おはようございます」「PRレビューお願いします」「了解です！」など）
+- 時刻は「14:32」形式
+- 1〜2箇所は同じ人の連投にしてグルーピング表示を確認できるようにする
+
+<h4># 必須条件（これを全部満たせば「完成」）</h4>1. 4ペインのレイアウトが画面に見えている
+2. メッセージが10件並んでいる
+3. 入力欄が一番下に固定されている
+4. 紫のサイドバー + 白のメインで配色されている
+5. 1ファイル(<code>index.html</code>)で完結している
+6. ブラウザで開いてエラーが出ない
+
+<h4># 仕上げ</h4>- 完成したら最後に「ブラウザで <code>index.html</code> を開いてください」と一言添える
+- 途中で迷っても止まらず、最も自然な解釈で実装を進めること
+- 「できません」「不明です」と言わず、必ず最後まで作り切ること
         </div>
       </div>
     </div>

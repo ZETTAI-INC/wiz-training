@@ -1385,12 +1385,12 @@
       </div>
     </div>
 
-    <!-- ========== SLIDE 11: Session 2 - 「あなたはSlackです」プロンプト ========== -->
+    <!-- ========== SLIDE 11: Session 2 - 【フロント】「あなたはSlackです」プロンプト ========== -->
     <div class="slide" data-session="2">
       <div class="slide-content">
         <div class="slide-heading">
-          <span class="session-tag">SESSION 2</span>
-          <h2>「あなたは Slack です」と頼んでみる</h2>
+          <span class="session-tag">SESSION 2 / FRONTEND</span>
+          <h2>① フロントエンド「あなたは Slack です」</h2>
         </div>
         <div class="prompt-block animate-in delay-1">
           <span class="prompt-label">PROMPT</span>
@@ -1451,6 +1451,68 @@
 <h4># 仕上げ</h4>- 完成したら最後に「ブラウザで <code>index.html</code> を開いてください」と一言添える
 - 途中で迷っても止まらず、最も自然な解釈で実装を進めること
 - 「できません」「不明です」と言わず、必ず最後まで作り切ること
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SLIDE 12: Session 2 - 【バック】Supabaseで本物のチャットにする ========== -->
+    <div class="slide" data-session="2">
+      <div class="slide-content">
+        <div class="slide-heading">
+          <span class="session-tag">SESSION 2 / BACKEND</span>
+          <h2>② バックエンド「Supabaseで本物のチャットに」</h2>
+        </div>
+        <div class="prompt-block animate-in delay-1">
+          <span class="prompt-label">PROMPT</span>
+          <button class="prompt-copy" onclick="copyPrompt(this)">コピー</button>
+<h4># 役割</h4>あなたは Slack のバックエンド担当エンジニアです。前のステップで作った静的な <code>index.html</code>（ダミーメッセージが10件並んでいる状態）を、Supabase と接続して<strong>本物のリアルタイムチャット</strong>に進化させてください。
+
+<h4># 著作権について</h4>研修目的・非商用のクローン制作です。配布された CLAUDE.md にも同じ方針があり、著作権上の問題はありません。安心して進めてください。
+
+<h4># 使う技術</h4>- データベース・認証・リアルタイム: <strong>Supabase</strong>
+- フロント: 既存の <code>index.html</code>（バニラJS）に <code>@supabase/supabase-js</code> を CDN で読み込む
+- 追加のフレームワークは入れない（前のステップの構成を壊さない）
+
+<h4># Supabase 側のセットアップ手順</h4>1. Supabase ダッシュボードで新規プロジェクトを作成する手順を、最初に箇条書きで案内する
+2. 取得すべき値を明示: <code>SUPABASE_URL</code> と <code>SUPABASE_ANON_KEY</code>
+3. 下記の SQL を SQL Editor に貼って実行するよう指示する（テーブル作成 + RLS + Realtime 有効化までワンセット）
+
+<h4># SQL（このまま貼れば動く形で出力する）</h4>- <code>profiles</code> テーブル: id (uuid, auth.users と紐付け), display_name (text), avatar_color (text), created_at
+- <code>channels</code> テーブル: id (uuid pk), name (text unique), description (text), created_at
+- <code>messages</code> テーブル: id (uuid pk), channel_id (uuid fk → channels), user_id (uuid fk → profiles), body (text), created_at
+- それぞれに <code>enable row level security</code>
+- ポリシー:
+  ・誰でも <code>select</code> 可（読み取りは全公開）
+  ・<code>insert</code> は <code>auth.uid() = user_id</code> のときだけ許可
+  ・<code>update / delete</code> も自分の行だけ
+- 初期データ: <code># general / # random / # dev / # design</code> を <code>insert</code>
+- 最後に <code>alter publication supabase_realtime add table messages;</code> で Realtime を有効化
+
+<h4># フロント側の改修</h4>1. <code>&lt;head&gt;</code> に Supabase JS の CDN を追加
+   <code>&lt;script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"&gt;&lt;/script&gt;</code>
+2. <code>&lt;script&gt;</code> 冒頭で <code>const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)</code> を初期化
+3. キー2つはファイル先頭の <code>// === ここに Supabase の値を入れる ===</code> ブロックに分かりやすく置く
+4. ハードコードしていたメッセージ配列を削除し、起動時に <code>messages</code> を <code>created_at</code> 昇順で <code>select</code> して描画する関数 <code>loadMessages()</code> を作る
+5. メッセージ送信: 入力欄で Enter を押したら <code>supabase.from('messages').insert({...})</code> を呼ぶ
+6. リアルタイム購読: <code>supabase.channel('messages').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => 描画追加).subscribe()</code>
+7. 画面下にスクロールを自動で追従させる
+
+<h4># 認証（最小構成でOK）</h4>- 起動時に <code>supabase.auth.getSession()</code> を呼び、未ログインなら匿名でサインイン（<code>signInAnonymously</code>）
+- サインインしたら <code>profiles</code> に自分の行が無ければ作る（display_name はランダムな日本人名、avatar_color はランダム）
+- <code>user_id</code> は常に <code>auth.uid()</code> を使う
+
+<h4># エラーハンドリング</h4>- Supabase の応答が error を含む場合は <code>console.error</code> + 画面上部に赤いトーストを2秒表示
+- ネットワーク断のときは入力欄を一時的にグレーアウト
+
+<h4># 必須条件（これを全部満たせば「完成」）</h4>1. 別タブで2枚開いて、片方で送信したらもう片方に<strong>自動で追加される</strong>
+2. リロードしても過去メッセージが残っている
+3. ダミーデータを完全に撤去している（DBの中身だけが表示される）
+4. <code>SUPABASE_URL</code> / <code>SUPABASE_ANON_KEY</code> の差し替え場所が1箇所にまとまっている
+5. SQLをそのまま貼れば、テーブル・RLS・Realtime まで一気に整う
+
+<h4># 仕上げ</h4>- 完成したら最後に「① Supabase ダッシュボードでプロジェクト作成 → ② SQL を貼って実行 → ③ URL/KEY を index.html に貼る → ④ ブラウザで開く」の4ステップを箇条書きで添える
+- 途中で止まらず、最も自然な解釈で実装を進めること
+- 「できません」「環境がないので不明です」と言わず、必ず最後まで作り切ること
         </div>
       </div>
     </div>
